@@ -1,8 +1,18 @@
 # 🛩️ 여행 스케줄 제작 웹 어플리케이션
 
+[📌 프로젝트 개요](#-프로젝트-개요)<br>
 [📌 FE](#-fe)<br>
 [📌 BE](#-be)<br>
 <br>
+
+## 📌 프로젝트 개요
+
+1. 프로젝트 참여자 : 강수현, 김민제 (2인)
+2. 프로젝트 기간 : 2024/02/14 ~
+3. 기술 스택
+   1. FE : HTML, CSS, JavaScript, React, Redux
+   2. BE : Python3, Django
+   3. 기타 : Github, Git, Discord(깃허브-디스코드 웹 훅 이용)
 
 ## 📌 FE
 
