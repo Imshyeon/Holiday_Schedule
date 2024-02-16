@@ -1,0 +1,163 @@
+import backgroundImg from "../backgroundImg.jpg";
+
+export default function MainPage() {
+  return (
+    <>
+      <section className="bg-gray-500 h-64">
+        <div className="bg-cover bg-center bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        <div className="grid grid-cols-6 grid-rows-auto text-center auto-rows-auto">
+          <div className="text-center col-start-2 col-span-4 py-24">
+            <input
+              type="text"
+              placeholder="검색"
+              className="p-5 rounded-full hover:outline-none focus:outline-none w-5/6 align-middle"
+            />
+          </div>
+        </div>
+      </section>
+      <section className="ml-10">
+        <article className="mt-5 mb-8">
+          <h3>생성한 여행 스케줄</h3>
+          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
+            <div className="whitespace-nowrap flex">
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+            </div>
+          </div>
+        </article>
+        <article className="mt-5 mb-8">
+          <h3>Articles</h3>
+          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
+            <div className="whitespace-nowrap flex">
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+            </div>
+          </div>
+        </article>
+        <article className="mt-5 mb-8">
+          <h3>Tutorials</h3>
+          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
+            <div className="whitespace-nowrap flex">
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+              <img
+                src={backgroundImg}
+                alt="scroll example img"
+                className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              />
+            </div>
+          </div>
+        </article>
+      </section>
+    </>
+  );
+}
