@@ -1,19 +1,37 @@
 import { Link, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faPlaneDeparture,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import logo from "../logo.svg";
 
 export default function RootPage() {
   return (
     <>
-      <header className="bg-main-side fixed w-5/6 right-0 max-xl:w-full">
+      <header className="bg-main-side fixed w-full right-0 max-xl:w-full">
         <nav className="h-1/6">
           <ul className="flex flex-row text-center max-xl:hidden">
+            <h1 className="text-xl font-bold p-2 px-9">
+              <Link to="/">
+                <FontAwesomeIcon
+                  icon={faPlaneDeparture}
+                  style={{ color: "#001e57" }}
+                  className="mr-1"
+                />
+                TIME TO TRAVEL
+              </Link>
+            </h1>
             <li className="basis-1/12 p-2">
-              <Link>시작하기</Link>
+              <Link to="tutorial" className="font-semibold">
+                시작하기
+              </Link>
             </li>
             <li className="basis-1/12 p-2">
-              <Link>Article</Link>
+              <Link to="article/:id" className="font-semibold">
+                Article
+              </Link>
             </li>
             <div className="absolute top-0 right-3">
               <img
@@ -24,11 +42,21 @@ export default function RootPage() {
             </div>
           </ul>
           <ul className="xl:hidden max-xl:visible h-1/6">
-            <li className="p-4">
-              <button>
+            <li className="p-4 grid grid-cols-3">
+              <button className="justify-self-start">
                 <FontAwesomeIcon icon={faBars} />
                 <FontAwesomeIcon icon={faX} />
               </button>
+              <h1 className="text-xl font-bold text-center inline-block justify-self-center">
+                <Link to="/">
+                  <FontAwesomeIcon
+                    icon={faPlaneDeparture}
+                    style={{ color: "#001e57" }}
+                    className="mr-1"
+                  />
+                  TIME TO TRAVEL
+                </Link>
+              </h1>
             </li>
             <div className="absolute top-2 right-3">
               <img
@@ -47,13 +75,17 @@ export default function RootPage() {
               <div className="border-b-[1px] text-left border-divider">
                 category
               </div>
-              <button className="p-3">title</button>
+              <Link to="schedule/:id">
+                <button className="p-3 font-medium text-lg">title</button>
+              </Link>
             </div>
             <div className="w-auto p-4">
               <div className="border-b-[1px] text-left border-divider">
                 category
               </div>
-              <button className="p-3">title</button>
+              <Link to="schedule/:id">
+                <button className="p-3 font-medium text-lg">title</button>
+              </Link>
             </div>
           </div>
         </aside>
@@ -70,10 +102,14 @@ export default function RootPage() {
         <div className="flex flex-row justify-between sticky bottom-0">
           <ul className="p-5 ml-5">
             <li className="my-3">
-              <Link>시작하기</Link>
+              <Link to="tutorial" className="font-semibold">
+                시작하기
+              </Link>
             </li>
             <li className="my-3">
-              <Link>Article</Link>
+              <Link to="article/:id" className="font-semibold">
+                Article
+              </Link>
             </li>
           </ul>
           <div className="flex flex-row p-5 items-end">
