@@ -1,4 +1,5 @@
 import backgroundImg from "../backgroundImg.jpg";
+import { Link } from "react-router-dom";
 
 export default function MainPage() {
   return (
@@ -15,145 +16,108 @@ export default function MainPage() {
           </div>
         </div>
       </section>
-      <section className="ml-10">
+      <section className="xl:mx-10 max-xl:mx-5">
         <article className="mt-5 mb-8">
-          <h3>생성한 여행 스케줄</h3>
+          <h3 className="font-bold">생성한 여행 스케줄</h3>
           <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
-            <div className="whitespace-nowrap flex">
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
+            <div className="flex gap-5">
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
             </div>
           </div>
         </article>
         <article className="mt-5 mb-8">
-          <h3>Articles</h3>
+          <h3 className="font-bold">Articles</h3>
           <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
-            <div className="whitespace-nowrap flex">
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-            </div>
-          </div>
-        </article>
-        <article className="mt-5 mb-8">
-          <h3>Tutorials</h3>
-          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
-            <div className="whitespace-nowrap flex">
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
-              <img
-                src={backgroundImg}
-                alt="scroll example img"
-                className="h-64 mr-5 rounded-md hover:rounded-3xl"
-              />
+            <div className="flex gap-5">
+              <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
             </div>
           </div>
         </article>

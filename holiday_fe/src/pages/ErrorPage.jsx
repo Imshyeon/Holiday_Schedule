@@ -1,13 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faHouse,
   faBars,
   faPlaneDeparture,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../logo.svg";
 
-export default function RootPage() {
+export default function ErrorPage() {
   return (
     <>
       <header className="bg-main-side fixed w-full right-0 max-xl:w-full">
@@ -90,7 +91,20 @@ export default function RootPage() {
           </div>
         </aside>
         <main className="w-5/6 mt-10 max-xl:w-full">
-          <Outlet />
+          <section className="flex flex-col justify-center align-middle items-center h-dvh">
+            <div className="text-center">
+              <h1 className="text-3xl font-extrabold">Error Message</h1>
+              <p className="text-xl">Error Status Code</p>
+              <Link to="/">
+                <button className="border-none bg-transparent p-2">
+                  <FontAwesomeIcon
+                    icon={faHouse}
+                    className="text-gray-400 hover:text-gray-500"
+                  />
+                </button>
+              </Link>
+            </div>
+          </section>
           <div className="flex flex-col">
             <button className="fixed right-5 bottom-5 bg-make-schedule-btn w-12 h-12 rounded-md shadow-lg">
               +
