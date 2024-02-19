@@ -116,13 +116,13 @@ export default function UserProfilePage() {
               <div className="col-start-6 flex items-right justify-end gap-x-6">
                 <button
                   type="button"
-                  className="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500"
+                  className="text-sm font-semibold leading-6 text-gray-700 hover:text-gray-900"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   Save
                 </button>
