@@ -11,6 +11,7 @@ import SignupPage from "./pages/SignupPage";
 import FindAccountPage from "./pages/FindAccountPage";
 import ErrorPage from "./pages/ErrorPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import NewSchedulePage from "./pages/NewSchedulePage";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "user",
         element: <UserProfilePage />,
+      },
+      {
+        path: "new",
+        element: <NewSchedulePage />,
       },
     ],
   },
