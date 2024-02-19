@@ -9,11 +9,14 @@ import DetailPage from "./pages/DetailPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FindAccountPage from "./pages/FindAccountPage";
+import ErrorPage from "./pages/ErrorPage";
+import UserProfilePage from "./pages/UserProfilePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -42,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "find",
         element: <FindAccountPage />,
+      },
+      {
+        path: "user",
+        element: <UserProfilePage />,
       },
     ],
   },

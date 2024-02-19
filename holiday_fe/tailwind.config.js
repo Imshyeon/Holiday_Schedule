@@ -12,6 +12,7 @@ module.exports = {
         divider: { DEFAULT: "#B7B4B4" },
         "make-schedule-btn": { DEFAULT: "#CCE8E5" },
         "submit-btn": { DEFAULT: "#9DF2EA" },
+        "user-profile": { DEFAULT: "#F6F6F6" },
       },
     },
   },

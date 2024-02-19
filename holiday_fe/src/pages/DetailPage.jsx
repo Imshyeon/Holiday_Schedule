@@ -38,7 +38,7 @@ export default function DetailPage() {
             </button>
           </div>
         </article>
-        <article className="days-schedule-info mt-10 ml-5 mr-12">
+        <article className="days-schedule-info mt-10 ml-5 mr-5">
           <div>
             <h3 className="text-xl font-bold">1일차</h3>
             <div className="h-fit bg-gray-100 rounded-xl mt-3 p-5 whitespace-pre-line flex flex-auto gap-3 items-center">
