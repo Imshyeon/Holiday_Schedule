@@ -7,7 +7,7 @@ import backgroundImg from "../backgroundImg.jpg";
 export default function DetailPage() {
   return (
     <>
-      <section className="h-screen mx-10 mt-10">
+      <section className="h-screen p-16 max-xl:p-20">
         <article className="basic-schedule-info">
           <div className="title flex flex-row justify-between items-center">
             <h1 className="text-3xl font-extrabold">🛩️ 베트남 여행</h1>

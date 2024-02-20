@@ -1,6 +1,6 @@
 export default function UserProfilePage() {
   return (
-    <section className="h-dvh mx-10 mt-10 divide-y-[1px]">
+    <section className="h-dvh p-16 max-xl:p-20 divide-y-[1px]">
       <div className="user-info py-2">
         <h1 className="text-3xl font-extrabold">유저 이름</h1>
       </div>

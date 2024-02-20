@@ -4,8 +4,8 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default function LoginPage() {
   return (
-    <section className="text-center h-fit max-xl:h-screen">
-      <article className="p-4 mt-8">
+    <section className="text-center align-middle h-fit p-16 max-xl:p-20 max-xl:h-dvl">
+      <article className="p-4">
         <h1 className="text-3xl font-extrabold">로그인하기</h1>
       </article>
       <article className="grid grid-cols-4 mt-4">

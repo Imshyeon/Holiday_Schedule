@@ -3,8 +3,10 @@ import { useImperativeHandle, useRef, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../../Store/schedule";
 import Input from "./Input";
+import { log } from "../../log";
 
 const Modal = forwardRef(function Modal({ onClose }, ref) {
+  log("<Modal /> rendered");
   const schedule = useSelector((state) => state.schedule);
   const dispatch = useDispatch();
 
@@ -82,5 +84,4 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
     document.getElementById("modal")
   );
 });
-
 export default Modal;

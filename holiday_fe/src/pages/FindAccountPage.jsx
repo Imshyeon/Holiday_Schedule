@@ -1,7 +1,7 @@
 export default function FindAccountPage() {
   return (
-    <section className="text-center h-fit max-xl:h-screen">
-      <article className="p-4 mt-8">
+    <section className="text-center h-fit p-16 max-xl:p-20 max-xl:h-screen">
+      <article className="p-4">
         <h1 className="text-3xl font-extrabold">아이디 / 비밀번호 찾기</h1>
       </article>
       <article className="grid grid-cols-4 mt-4">

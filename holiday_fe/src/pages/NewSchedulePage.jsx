@@ -1,6 +1,6 @@
 export default function NewSchedulePage() {
   return (
-    <section className="mx-10 my-10">
+    <section className="mx-10 p-16 max-xl:p-20">
       <form>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
