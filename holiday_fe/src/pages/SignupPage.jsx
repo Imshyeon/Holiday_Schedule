@@ -4,8 +4,8 @@ import { faSquareCheck as beforeCheck } from "@fortawesome/free-regular-svg-icon
 
 export default function SignupPage() {
   return (
-    <section className="text-center h-fit max-xl:h-screen">
-      <article className="p-4 mt-8">
+    <section className="text-center h-fit p-16 max-xl:p-20 max-xl:h-screen">
+      <article className="p-4">
         <h1 className="text-3xl font-extrabold">회원가입하기</h1>
       </article>
       <article className="grid grid-cols-4 mt-4 mb-12">

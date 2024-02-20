@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Modal from "../UI/Modal";
-import { useRef } from "react";
+import { useRef, memo } from "react";
+import { log } from "../../log";
 
-export default function MainPage() {
+const MainPage = memo(function MainPage() {
+  log("<MainPage /> -> Component rendered");
   const modal = useRef();
 
   function openModalHandler() {
@@ -16,7 +18,7 @@ export default function MainPage() {
   }
 
   return (
-    <main className="w-5/6 mt-10 max-xl:w-full">
+    <main className="w-5/6 max-xl:w-full">
       <Outlet />
       <Modal ref={modal} onClose={closeModalHandler} />
       <div className="flex flex-col">
@@ -29,4 +31,5 @@ export default function MainPage() {
       </div>
     </main>
   );
-}
+});
+export default MainPage;

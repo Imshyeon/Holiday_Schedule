@@ -1,11 +1,12 @@
 import backgroundImg from "../backgroundImg.jpg";
 import { Link } from "react-router-dom";
+import { log } from "../log";
 
 export default function MainPage() {
+  log("<MainPage /> rendered");
   return (
     <>
-      <section className="bg-gray-500 h-64">
-        <div className="bg-cover bg-center bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+      <section className="bg-gray-500 h-64 p-5">
         <div className="grid grid-cols-6 grid-rows-auto text-center auto-rows-auto">
           <div className="text-center col-start-2 col-span-4 py-24">
             <input
@@ -21,6 +22,15 @@ export default function MainPage() {
           <h3 className="font-bold">생성한 여행 스케줄</h3>
           <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
             <div className="flex gap-5">
+              <Link to="schedule/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
               <Link to="schedule/:id">
                 <div className="h-64 w-64">
                   <img
@@ -110,6 +120,15 @@ export default function MainPage() {
                 </div>
               </Link>
               <Link to="article/:id">
+                <div className="h-64 w-64">
+                  <img
+                    src={backgroundImg}
+                    alt="scroll example img"
+                    className="h-64 mr-5 rounded-md hover:rounded-3xl"
+                  />
+                </div>
+              </Link>
+              <Link to="schedule/:id">
                 <div className="h-64 w-64">
                   <img
                     src={backgroundImg}
