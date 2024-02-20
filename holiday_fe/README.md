@@ -1,5 +1,52 @@
 # 🛩️ 여행 스케줄 제작 웹 어플리케이션 - 프론트엔드
 
+## 📌 디자인 및 레이아웃 설계
+
+- Figma를 이용하여 디자인 및 레이아웃 설계
+  ![피그마-설계](../image/여행%20스케줄%20앱.png)
+
+<br>
+
+## 📌 초기 디자인 및 레이아웃
+
+### 📖 메인 페이지
+
+- 메인 홈페이지
+  ![메인-홈페이지](../image/초기%20디자인/mainHome.gif)
+
+- Modal
+  ![초기-모달](../image/초기%20디자인/초기모달.gif)
+
+<br>
+
+### 📖 세부 페이지
+
+- 세부 작성 페이지
+  ![초기-세부-작성-페이지](../image/초기%20디자인/초기new.png)
+
+- 세부 페이지
+  ![초기-디테일-페이지](../image/초기%20디자인/초기디테일페이지.png)
+
+<br>
+
+### 📖 유저 관련 페이지
+
+- 유저 프로필 페이지
+  ![초기-유저-프로필](../image/초기%20디자인/초기유저프로필.png)
+
+- 로그인 페이지
+  ![초기-로그인](../image/초기%20디자인/초기로그인.png)
+
+- 회원가입 페이지
+  ![초기-회원가입](../image/초기%20디자인/초기회원가입.png)
+
+- 아이디 / 비밀번호 페이지
+  ![초기-찾기-페이지](../image/초기%20디자인/초기find.png)
+
+<br><br>
+
+# 💻 React App
+
 [📌 Getting Started with Create React App](#-getting-started-with-create-react-app)<br>
 [📌 Available Scripts](#-available-scripts)<br>
 [📌 Learn More](#-learn-more)<br>
