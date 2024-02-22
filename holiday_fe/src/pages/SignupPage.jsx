@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck as afterCheck } from "@fortawesome/free-solid-svg-icons";
 import { faSquareCheck as beforeCheck } from "@fortawesome/free-regular-svg-icons";
+import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
 
 export default function SignupPage() {
   return (
@@ -68,25 +69,16 @@ export default function SignupPage() {
                   className="rounded-xl px-7 py-3 mb-6 w-full focus:outline-none focus:border-b-[1px]"
                 />
               </div>
-              <button className="rounded-xl px-7 py-3 mb-5 w-3/5 bg-gray-300/90 hover:bg-submit-btn">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">완료</p>
-                </li>
-              </button>
+              <GeneralButton
+                title="완료"
+                classes="bg-gray-300/90 hover:bg-submit-btn"
+              />
             </form>
           </div>
           <div className="using-General mt-5 p-3">
             <ul>
-              <button className="rounded-xl px-7 py-3 mb-1 w-3/5 bg-transparent hover:bg-gray-100">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">로그인하기</p>
-                </li>
-              </button>
-              <button className="rounded-xl px-7 py-3 mb-1 w-3/5 bg-transparent hover:bg-gray-100">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">아이디 / 비밀번호 찾기</p>
-                </li>
-              </button>
+              <GeneralButton title="로그인하기" />
+              <GeneralButton title="아이디 / 비밀번호 찾기" />
             </ul>
           </div>
         </div>
