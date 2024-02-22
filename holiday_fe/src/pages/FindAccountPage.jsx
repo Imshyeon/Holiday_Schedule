@@ -1,3 +1,5 @@
+import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
+
 export default function FindAccountPage() {
   return (
     <section className="text-center h-fit p-16 max-xl:p-20 max-xl:h-screen">
@@ -19,25 +21,16 @@ export default function FindAccountPage() {
                   className="rounded-xl px-7 py-3 mb-4 w-full focus:outline-none focus:border-b-[1px]"
                 />
               </div>
-              <button className="rounded-xl px-7 py-3 mb-6 w-3/5 bg-gray-300/70 hover:bg-gray-300/90">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">다음</p>
-                </li>
-              </button>
+              <GeneralButton
+                title="다음"
+                classes="bg-gray-300/70 hover:bg-gray-300/90"
+              />
             </form>
           </div>
           <div className="using-General mt-5 p-5">
             <ul>
-              <button className="rounded-xl px-7 py-3 mb-1 w-3/5 bg-transparent hover:bg-gray-100">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">로그인하기</p>
-                </li>
-              </button>
-              <button className="rounded-xl px-7 py-3 mb-1 w-3/5 bg-transparent hover:bg-gray-100">
-                <li className="flex flex-row items-center justify-center">
-                  <p className="align-middle ml-2">회원가입하기</p>
-                </li>
-              </button>
+              <GeneralButton title="로그인하기" />
+              <GeneralButton title="회원가입하기" />
             </ul>
           </div>
         </div>

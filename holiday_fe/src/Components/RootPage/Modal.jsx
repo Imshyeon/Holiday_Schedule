@@ -2,8 +2,8 @@ import { createPortal } from "react-dom";
 import { useImperativeHandle, useRef, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../../Store/schedule";
-import Input from "./Input";
 import { log } from "../../log";
+import { motion } from "framer-motion";
 
 const Modal = forwardRef(function Modal({ onClose }, ref) {
   log("<Modal /> rendered");
@@ -38,10 +38,10 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
   console.log(schedule);
 
   return createPortal(
-    <dialog
+    <motion.dialog
       ref={dialog}
       onClose={onClose}
-      className="backdrop:bg-stone-900/80 bg-gray-200/90 rounded-xl "
+      className="backdrop:bg-stone-900/80 bg-gray-200/90 rounded-xl"
     >
       <form
         method="dialog"
@@ -80,8 +80,24 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
           </button>
         </menu>
       </form>
-    </dialog>,
+    </motion.dialog>,
     document.getElementById("modal")
   );
 });
+
 export default Modal;
+
+function Input({ label, id, type = "text" }) {
+  let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
+
+  let classWidth = "w-[500px]";
+  if (type === "date") {
+    classWidth = "w-full";
+  }
+  return (
+    <div className={`flex flex-col gap-1 my-4 ${classWidth}`}>
+      <label htmlFor={id}>{label}</label>
+      <input type={type} id={id} name={id} className={classes} />
+    </div>
+  );
+}

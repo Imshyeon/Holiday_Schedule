@@ -1,6 +1,6 @@
 import MainNavigation from "../Components/RootPage/MainNavigation";
 import Footer from "../Components/RootPage/Footer";
-import MainPage from "../Components/RootPage/MainPage";
+import MainPage from "../Components/RootPage/RootRenderComponent";
 import { log } from "../log";
 import Sidebar from "../Components/RootPage/Sidebar";
 
