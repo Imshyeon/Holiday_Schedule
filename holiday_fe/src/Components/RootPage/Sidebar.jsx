@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { toggleBtnActions } from "../../Store/sidebarToggle";
 
 export default function Sidebar({ isExpended }) {
   let classExpend = "max-xl:hidden ";
@@ -31,11 +33,16 @@ function SidebarList({ classWidth, category }) {
 }
 
 function SidebarItem({ title }) {
+  const dispatch = useDispatch();
+  function clickBurgerHandler() {
+    dispatch(toggleBtnActions.toggleBtn());
+  }
   return (
     <Link to="schedule/:id">
       {/* onClick 해서 burgerClickHandler 에서 false로 해야될듯..? -> redux 필요 */}
       <motion.button
         whileHover={{ scale: 1.05 }}
+        onClick={clickBurgerHandler}
         className="mt-2 p-3 font-medium w-2/3 text-lg hover:bg-white rounded-2xl hover:p-3"
       >
         {title}
