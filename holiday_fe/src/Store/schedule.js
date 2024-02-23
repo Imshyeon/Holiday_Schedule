@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { schedule: {}, scheduleStage: 0 };
 
@@ -6,8 +6,13 @@ const scheduleSlice = createSlice({
   name: "new-schedule",
   initialState: initialState,
   reducers: {
-    setStage(state) {
-      state.scheduleStage++;
+    setStage(state, action) {
+      const type = action.payload;
+      if (type === "INITIALIZE") {
+        state.scheduleStage = 0;
+      } else {
+        state.scheduleStage++;
+      }
     },
     createBasicInfo_1(state, action) {
       const basicInfo = action.payload;
@@ -25,14 +30,15 @@ const scheduleSlice = createSlice({
         endDate: basicInfo.endDate,
       };
     },
-  },
-});
-
-const store = configureStore({
-  reducer: {
-    schedule: scheduleSlice.reducer,
+    createSchedule(state, action) {
+      const detailSchedule = action.payload;
+      state.schedule = {
+        ...state.schedule,
+        ...detailSchedule,
+      };
+    },
   },
 });
 
 export const scheduleActions = scheduleSlice.actions;
-export default store;
+export default scheduleSlice.reducer;
