@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../../Store/schedule";
 import { log } from "../../log";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Modal = forwardRef(function Modal({ onClose }, ref) {
   log("<Modal /> rendered");
   const schedule = useSelector((state) => state.schedule);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const dialog = useRef();
@@ -35,8 +37,6 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
     event.target.reset();
   }
 
-  console.log(schedule);
-
   return createPortal(
     <motion.dialog
       ref={dialog}
@@ -46,7 +46,7 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
       <form
         method="dialog"
         onSubmit={submitHandler}
-        className="w-full h-full p-10 flex flex-col justify-center align-middle items-center focus:outline-none"
+        className="w-full h-fit p-10 flex flex-col justify-center align-middle items-center focus:outline-none"
       >
         {schedule.scheduleStage === 0 && (
           <>
@@ -75,6 +75,11 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
           <button
             type="submit"
             className="bg-gray-50 px-4 py-1 rounded-lg hover:bg-gray-100"
+            onClick={() => {
+              if (schedule.scheduleStage === 1) {
+                navigate("/new");
+              }
+            }}
           >
             계속
           </button>
@@ -84,8 +89,6 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
     document.getElementById("modal")
   );
 });
-
-export default Modal;
 
 function Input({ label, id, type = "text" }) {
   let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
@@ -101,3 +104,5 @@ function Input({ label, id, type = "text" }) {
     </div>
   );
 }
+
+export default Modal;

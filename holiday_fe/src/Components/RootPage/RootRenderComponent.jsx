@@ -4,28 +4,24 @@ import { useRef, memo } from "react";
 import { log } from "../../log";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const MainPage = memo(function MainPage() {
   log("<RootRenderComponent /> rendered");
   const modal = useRef();
 
   function openModalHandler() {
-    console.log("open modal");
     modal.current.open();
   }
 
   function closeModalHandler() {
-    console.log("close modal");
     modal.current.close();
   }
 
   return (
     <main className="w-5/6 max-xl:w-full">
       <Outlet />
-      <AnimatePresence>
-        <Modal ref={modal} onClose={closeModalHandler} />
-      </AnimatePresence>
+      <Modal ref={modal} onClose={closeModalHandler} />
       <div className="flex flex-col">
         <motion.button
           onClick={openModalHandler}
