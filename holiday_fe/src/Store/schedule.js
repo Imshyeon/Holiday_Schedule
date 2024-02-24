@@ -14,11 +14,18 @@ const scheduleSlice = createSlice({
         state.scheduleStage++;
       }
     },
-    createBasicInfo_1(state, action) {
+    createBasicInfo_Title(state, action) {
       const basicInfo = action.payload;
       state.schedule = {
         title: basicInfo.title,
-        category: basicInfo.category,
+      };
+    },
+    createBasicInfo_Category(state, action) {
+      const basicInfo = action.payload;
+      const category = basicInfo.category.split(",");
+      state.schedule = {
+        ...state.schedule,
+        category,
       };
     },
     createBasicInfo_2(state, action) {
