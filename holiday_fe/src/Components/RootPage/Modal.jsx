@@ -1,10 +1,14 @@
 import { createPortal } from "react-dom";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { log } from "../../log";
 import { motion } from "framer-motion";
+import CategoryComponent from "../UI/CategoryComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { scheduleActions } from "../../Store/schedule";
 
 export default function Modal({ open, onClose, onSubmit, step }) {
   log("<Modal /> rendered");
+  const { schedule } = useSelector((state) => state.schedule);
 
   const dialog = useRef();
 
@@ -66,16 +70,38 @@ export default function Modal({ open, onClose, onSubmit, step }) {
 }
 
 function Input({ label, id, type = "text" }) {
+  const [categories, setCategory] = useState([]);
+  const dispatch = useDispatch();
   let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
 
   let classWidth = "w-[500px]";
   if (type === "date") {
     classWidth = "w-full";
   }
+
+  function categoryKeyboardHandler(event) {
+    const COMMA = ",";
+    if (id === "category" && event.code === "Comma") {
+      const currentCategory = event.target.value;
+      const newCategories = currentCategory.split(COMMA);
+      setCategory(newCategories);
+    }
+  }
+
   return (
     <div className={`flex flex-col gap-1 my-4 ${classWidth}`}>
       <label htmlFor={id}>{label}</label>
-      <input type={type} id={id} name={id} className={classes} required />
+      <input
+        type={type}
+        id={id}
+        name={id}
+        className={classes}
+        onKeyDown={categoryKeyboardHandler}
+        required
+      />
+      {categories.length >= 1 ? (
+        <CategoryComponent categories={categories} />
+      ) : null}
     </div>
   );
 }

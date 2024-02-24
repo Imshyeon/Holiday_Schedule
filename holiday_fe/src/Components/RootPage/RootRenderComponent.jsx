@@ -35,7 +35,8 @@ const MainPage = memo(function MainPage() {
     const data = Object.fromEntries(fd.entries());
     console.log("submit ==> ", step);
     if (step === "first") {
-      dispatch(scheduleActions.createBasicInfo_1(data));
+      dispatch(scheduleActions.createBasicInfo_Title(data));
+      dispatch(scheduleActions.createBasicInfo_Category(data));
       dispatch(modalActions.openSecondModal());
     } else if (step === "second") {
       dispatch(scheduleActions.createBasicInfo_2(data));
