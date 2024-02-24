@@ -1,27 +1,65 @@
 import { Outlet } from "react-router-dom";
 import Modal from "./Modal";
-import { useRef, memo } from "react";
+import { memo } from "react";
 import { log } from "../../log";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions } from "../../Store/modal";
+import { scheduleActions } from "../../Store/schedule";
+import { useNavigate } from "react-router-dom";
+
 const MainPage = memo(function MainPage() {
   log("<RootRenderComponent /> rendered");
-  const modal = useRef();
+  const { step } = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function openModalHandler() {
-    modal.current.open();
+    dispatch(modalActions.openFirstModal());
   }
 
-  function closeModalHandler() {
-    modal.current.close();
+  function closeModal() {
+    if (step === "first") {
+      dispatch(modalActions.closeFirstModal());
+    } else {
+      dispatch(modalActions.closeSecondModal());
+    }
+  }
+
+  function submitHandler(event) {
+    event.preventDefault();
+    const fd = new FormData(event.target);
+    const data = Object.fromEntries(fd.entries());
+    console.log("submit ==> ", step);
+    if (step === "first") {
+      dispatch(scheduleActions.createBasicInfo_1(data));
+      dispatch(modalActions.openSecondModal());
+    } else if (step === "second") {
+      dispatch(scheduleActions.createBasicInfo_2(data));
+      dispatch(modalActions.closeSecondModal());
+      navigate("/new");
+    }
+    event.target.reset();
   }
 
   return (
     <main className="w-5/6 max-xl:w-full">
       <Outlet />
-      <Modal ref={modal} onClose={closeModalHandler} />
+      <Modal
+        open={step === "first"}
+        onClose={step === "first" ? closeModal : null}
+        onSubmit={submitHandler}
+        step={step}
+      />
+      <Modal
+        open={step === "second"}
+        onClose={step === "second" ? closeModal : null}
+        onSubmit={submitHandler}
+        step={step}
+      />
       <div className="flex flex-col">
         <motion.button
           onClick={openModalHandler}
