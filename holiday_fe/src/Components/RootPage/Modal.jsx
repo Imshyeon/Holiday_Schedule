@@ -1,41 +1,36 @@
 import { createPortal } from "react-dom";
-import { useImperativeHandle, useRef, forwardRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { scheduleActions } from "../../Store/schedule";
+import { useRef, useEffect } from "react";
 import { log } from "../../log";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
-const Modal = forwardRef(function Modal({ onClose }, ref) {
+export default function Modal({ open, onClose, onSubmit, step }) {
   log("<Modal /> rendered");
-  const schedule = useSelector((state) => state.schedule);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const dialog = useRef();
 
-  useImperativeHandle(ref, () => {
-    return {
-      open() {
-        dialog.current.showModal();
-      },
-      close() {
-        dialog.current.close();
-      },
-    };
-  });
-
-  function submitHandler(event) {
-    const fd = new FormData(event.target);
-    const data = Object.fromEntries(fd.entries());
-    if (schedule.scheduleStage === 0) {
-      dispatch(scheduleActions.createBasicInfo_1(data));
-    } else if (schedule.scheduleStage === 1) {
-      dispatch(scheduleActions.createBasicInfo_2(data));
+  useEffect(() => {
+    const modal = dialog.current;
+    if (open) {
+      modal.showModal();
     }
-    dispatch(scheduleActions.setStage());
-    event.target.reset();
-  }
+
+    return () => modal.close();
+  }, [open]);
+
+  let actions = (
+    <menu className="mt-5 self-end flex flex-row gap-5">
+      <button
+        type="button"
+        onClick={onClose}
+        className="focus:outline-none hover:text-gray-700"
+      >
+        취소
+      </button>
+      <button className="bg-gray-50 px-4 py-1 rounded-lg hover:bg-gray-100">
+        계속
+      </button>
+    </menu>
+  );
 
   return createPortal(
     <motion.dialog
@@ -45,16 +40,16 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
     >
       <form
         method="dialog"
-        onSubmit={submitHandler}
+        onSubmit={onSubmit}
         className="w-full h-fit p-10 flex flex-col justify-center align-middle items-center focus:outline-none"
       >
-        {schedule.scheduleStage === 0 && (
+        {step === "first" && (
           <>
             <Input label="제목" id="title" />
             <Input label="카테고리" id="category" />
           </>
         )}
-        {schedule.scheduleStage === 1 && (
+        {step === "second" && (
           <>
             <Input label="여행 장소" id="place" />
             <div className="flex flex-row gap-4 w-full">
@@ -63,32 +58,12 @@ const Modal = forwardRef(function Modal({ onClose }, ref) {
             </div>
           </>
         )}
-
-        <menu className="mt-5 self-end flex flex-row gap-5">
-          <button
-            type="button"
-            onClick={onClose}
-            className="focus:outline-none hover:text-gray-700"
-          >
-            취소
-          </button>
-          <button
-            type="submit"
-            className="bg-gray-50 px-4 py-1 rounded-lg hover:bg-gray-100"
-            onClick={() => {
-              if (schedule.scheduleStage === 1) {
-                navigate("/new");
-              }
-            }}
-          >
-            계속
-          </button>
-        </menu>
+        {actions}
       </form>
     </motion.dialog>,
     document.getElementById("modal")
   );
-});
+}
 
 function Input({ label, id, type = "text" }) {
   let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
@@ -100,9 +75,7 @@ function Input({ label, id, type = "text" }) {
   return (
     <div className={`flex flex-col gap-1 my-4 ${classWidth}`}>
       <label htmlFor={id}>{label}</label>
-      <input type={type} id={id} name={id} className={classes} />
+      <input type={type} id={id} name={id} className={classes} required />
     </div>
   );
 }
-
-export default Modal;
