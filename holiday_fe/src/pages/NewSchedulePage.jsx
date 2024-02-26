@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../Store/schedule";
-import { fetchActions } from "../Store/fetch";
+// import { fetchActions } from "../utils/fetch";
 import NewScheduleComponent from "../Components/NewSchedulePage/NewScheduleComponent";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -61,7 +61,7 @@ export default function NewSchedulePage() {
       image: imageFile, // blob으로 이미지 대체
     };
     dispatch(scheduleActions.createSchedule(data));
-    dispatch(fetchActions.postSchedule({ schedule, data }));
+    // dispatch(fetchActions.postSchedule({ schedule, data }));
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }

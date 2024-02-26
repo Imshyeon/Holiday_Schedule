@@ -5,6 +5,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 
+import GoogleMapComponent from "../Components/Google/GoogleMapComponent";
+import Marker from "../Components/Google/Marker";
+import { Wrapper } from "@googlemaps/react-wrapper";
+const GOOGLE_API_KEY = "AIzaSyBwXhlspBZwf-kAjV6pWsx9VIxNrFdP3uk";
+
 export default function MainPage() {
   const schedule = useSelector((state) => state.schedule);
 
@@ -75,6 +80,18 @@ export default function MainPage() {
             </motion.ul>
           </div>
         </article>
+        {/* google map test */}
+        <article>
+          <Wrapper apiKey={GOOGLE_API_KEY}>
+            <GoogleMapComponent
+              center={{ lat: -34.397, lng: 150.644 }}
+              zoom={8}
+            >
+              <Marker position={{ lat: -34.397, lng: 150.644 }} />
+            </GoogleMapComponent>
+          </Wrapper>
+        </article>
+        {/* =============== */}
       </section>
     </>
   );

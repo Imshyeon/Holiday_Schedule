@@ -1,14 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { Map } from "@googlemaps/js-api-loader";
+// import { MarkerClusterer } from "@googlemaps/markerclusterer";
+const GOOGLE_API_KEY = "AIzaSyBwXhlspBZwf-kAjV6pWsx9VIxNrFdP3uk";
 
-async function fetchHandler(url, option, errorMessage) {
+// fetch
+export async function fetchHandler(url, option, errorMessage) {
   const response = await fetch(url, option);
+
   if (!response.ok) {
     throw new Error(errorMessage);
   }
   const resData = await response.json();
+
   return resData;
 }
 
+// 구글 장소 API
+export async function placeAPIHandler(place) {
+  const response = await fetch(
+    `https://places.googleapis.com/v1/places/GyuEmsRBfy61i59si0?fields=addressComponents&key=${GOOGLE_API_KEY}`
+  );
+
+  if (!response.ok) {
+    throw new Error("");
+  }
+}
+
+// 이전
 const fetchSlice = createSlice({
   name: "fetch",
   initialState: {
