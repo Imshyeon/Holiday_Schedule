@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { schedule: {}, scheduleStage: 0 };
+const initialState = { schedule: {} };
 
 const scheduleSlice = createSlice({
   name: "new-schedule",
@@ -22,10 +22,9 @@ const scheduleSlice = createSlice({
     },
     createBasicInfo_Category(state, action) {
       const basicInfo = action.payload;
-      const category = basicInfo.category.split(",");
       state.schedule = {
         ...state.schedule,
-        category,
+        category: basicInfo,
       };
     },
     createBasicInfo_2(state, action) {
@@ -47,5 +46,24 @@ const scheduleSlice = createSlice({
   },
 });
 
+const categorySlice = createSlice({
+  name: "category",
+  initialState: { category: [] },
+  reducers: {
+    addCategory(state, action) {
+      const category = action.payload;
+      const isComma = /[,$]/.test(category);
+      const newCategory = isComma ? category.split(",")[0] : category;
+      state.category = [...state.category, newCategory];
+    },
+    removeCategory(state, action) {
+      const categoryId = action.payload;
+      state.category = state.category.filter((item) => item !== categoryId);
+    },
+  },
+});
+
 export const scheduleActions = scheduleSlice.actions;
 export default scheduleSlice.reducer;
+export const categoryReducer = categorySlice.reducer;
+export const categoryActions = categorySlice.actions;

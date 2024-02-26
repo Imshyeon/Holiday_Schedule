@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const MainPage = memo(function MainPage() {
   log("<RootRenderComponent /> rendered");
   const { step } = useSelector((state) => state.modal);
+  const { category } = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ const MainPage = memo(function MainPage() {
     console.log("submit ==> ", step);
     if (step === "first") {
       dispatch(scheduleActions.createBasicInfo_Title(data));
-      dispatch(scheduleActions.createBasicInfo_Category(data));
+      dispatch(scheduleActions.createBasicInfo_Category(category));
       dispatch(modalActions.openSecondModal());
     } else if (step === "second") {
       dispatch(scheduleActions.createBasicInfo_2(data));

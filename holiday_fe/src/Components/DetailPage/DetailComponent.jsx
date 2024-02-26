@@ -29,6 +29,7 @@ export default function DetailComponent({ title, categories, children }) {
               <button
                 key={category}
                 className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                disabled
               >
                 {category}
               </button>
