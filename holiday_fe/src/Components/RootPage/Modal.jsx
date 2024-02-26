@@ -3,12 +3,11 @@ import { useRef, useEffect, useState } from "react";
 import { log } from "../../log";
 import { motion } from "framer-motion";
 import CategoryComponent from "../UI/CategoryComponent";
-import { useDispatch, useSelector } from "react-redux";
-import { scheduleActions } from "../../Store/schedule";
+import { useDispatch } from "react-redux";
+import { categoryActions } from "../../Store/schedule";
 
 export default function Modal({ open, onClose, onSubmit, step }) {
   log("<Modal /> rendered");
-  const { schedule } = useSelector((state) => state.schedule);
 
   const dialog = useRef();
 
@@ -26,11 +25,15 @@ export default function Modal({ open, onClose, onSubmit, step }) {
       <button
         type="button"
         onClick={onClose}
+        tabIndex="-1"
         className="focus:outline-none hover:text-gray-700"
       >
         취소
       </button>
-      <button className="bg-gray-50 px-4 py-1 rounded-lg hover:bg-gray-100">
+      <button
+        className="bg-gray-50 px-4 py-1 rounded-lg focus:outline-none hover:bg-gray-100"
+        tabIndex="-1"
+      >
         계속
       </button>
     </menu>
@@ -40,7 +43,7 @@ export default function Modal({ open, onClose, onSubmit, step }) {
     <motion.dialog
       ref={dialog}
       onClose={onClose}
-      className="backdrop:bg-stone-900/80 bg-gray-200/90 rounded-xl"
+      className="backdrop:bg-stone-900/80 bg-gray-200/90 rounded-xl focus:outline-none"
     >
       <form
         method="dialog"
@@ -79,14 +82,23 @@ function Input({ label, id, type = "text" }) {
     classWidth = "w-full";
   }
 
-  function categoryKeyboardHandler(event) {
-    const COMMA = ",";
-    if (id === "category" && event.code === "Comma") {
-      const currentCategory = event.target.value;
-      const newCategories = currentCategory.split(COMMA);
-      setCategory(newCategories);
+  function setCategories(event) {
+    if (
+      id === "category" &&
+      (event.code === "Comma" ||
+        event.code === "Tab" ||
+        event.code === "Space" ||
+        event.type === "blur") &&
+      event.target.value.trim() !== ""
+    ) {
+      event.preventDefault();
+      let inputValue = event.target.value;
+      inputValue = inputValue.trim();
+      setCategory((prevCategory) => [...prevCategory, inputValue.split(",")]);
+      dispatch(categoryActions.addCategory(inputValue.trim()));
+      event.target.value = "";
     }
-  }
+  } // 처음에 onKeyDown으로 했을 때, 키 입력이 버벅임 + 제대로 input이 초기화되지 않는 문제 발생 -> onKeyUp으로 해결
 
   return (
     <div className={`flex flex-col gap-1 my-4 ${classWidth}`}>
@@ -96,8 +108,8 @@ function Input({ label, id, type = "text" }) {
         id={id}
         name={id}
         className={classes}
-        onKeyDown={categoryKeyboardHandler}
-        required
+        onKeyUp={id === "category" ? setCategories : null}
+        onBlur={id === "category" ? setCategories : null}
       />
       {categories.length >= 1 ? (
         <CategoryComponent categories={categories} />

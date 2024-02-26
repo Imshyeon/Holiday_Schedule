@@ -67,77 +67,42 @@ export default function NewSchedulePage() {
   }
 
   return (
-    <section className="mx-10 p-16 max-xl:p-20">
+    <section className="h-dvh p-16 max-xl:p-20">
       <form onSubmit={submitSchedule}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="mt-2 col-span-5">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset">
-                  <input
-                    type="text"
-                    name="schedule-name"
-                    id="schedule-name"
-                    autoComplete="schedule-name"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                    placeholder={schedule.title}
-                    disabled
-                  />
-                </div>
+          <div className="border-b border-gray-900/10 pb-8">
+            <article className="basic-schedule-info">
+              <div className="title flex flex-row justify-between items-center">
+                <h1 className="text-3xl font-extrabold">{schedule.title}</h1>
               </div>
-              <div className="mt-2 col-span-1">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset">
-                  <input
-                    type="text"
-                    name="schedule-category"
-                    id="schedule-category"
-                    autoComplete="schedule-category"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                    placeholder={schedule.category}
-                    disabled
-                  />
-                </div>
+              <div className="sub-title flex flex-row justify-start gap-2">
+                {schedule.category.map((category) => {
+                  return (
+                    <button
+                      key={category}
+                      className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                      disabled
+                    >
+                      {category}
+                    </button>
+                  );
+                })}
+                <button
+                  key="place"
+                  className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                  disabled
+                >
+                  {schedule.place}
+                </button>
+                <button
+                  key="date"
+                  className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                  disabled
+                >
+                  {schedule.startDate} ~ {schedule.endDate}
+                </button>
               </div>
-              <div className="col-span-4">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset">
-                  <input
-                    type="text"
-                    name="schedule-place"
-                    id="schedule-place"
-                    autoComplete="schedule-place"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                    placeholder={schedule.place}
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="col-span-1">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset">
-                  <input
-                    type="text"
-                    name="schedule-date-start"
-                    id="schedule-date-start"
-                    autoComplete="schedule-date-start"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                    placeholder={schedule.startDate}
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="col-span-1">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset">
-                  <input
-                    type="text"
-                    name="schedule-date-end"
-                    id="schedule-date-end"
-                    autoComplete="schedule-date-end"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                    placeholder={schedule.endDate}
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
+            </article>
           </div>
           {/* 세부일정 -> 이전 모달에서 받아온 일정대로 출력. */}
           {travelDates >= 0 && createDetailSchedule()}
