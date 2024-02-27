@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import scheduleReducer from "./schedule.js";
 import toggleBtnReducer from "./sidebarToggle.js";
-import modalReducer from "./modal.js";
+import modalReducer, { profileReducers } from "./modal.js";
 import { categoryReducer } from "./schedule.js";
+import userReducers from "./user.js";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,8 @@ const store = configureStore({
     toggle: toggleBtnReducer,
     modal: modalReducer,
     category: categoryReducer,
+    profile: profileReducers,
+    user: userReducers,
   },
 });
 

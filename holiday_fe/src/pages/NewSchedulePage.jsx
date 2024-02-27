@@ -61,7 +61,6 @@ export default function NewSchedulePage() {
       image: imageFile, // blob으로 이미지 대체
     };
     dispatch(scheduleActions.createSchedule(data));
-    // dispatch(fetchActions.postSchedule({ schedule, data }));
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }

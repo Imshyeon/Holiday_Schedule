@@ -1,13 +1,10 @@
 import CategoryComponent from "../UI/CategoryComponent";
 import { useDispatch } from "react-redux";
 import { categoryActions } from "../../Store/schedule";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 export default function Input({ label, id, type = "text" }) {
   const [categories, setCategory] = useState([]);
-  const placeRef = useRef(null);
   const dispatch = useDispatch();
   let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
 
@@ -27,28 +24,6 @@ export default function Input({ label, id, type = "text" }) {
     />
   );
 
-  if (id === "place") {
-    content = (
-      <div className="flex flex-row w-full">
-        <input
-          type={type}
-          id={id}
-          name={id}
-          className={classes + " w-full"}
-          ref={placeRef}
-          placeholder="여행 장소를 입력해주세요. (예, 뉴욕, 프랑스)"
-        />
-        <button
-          type="button"
-          onClick={findGoogleMapHandler}
-          className="px-3 py-1 focus:outline-none"
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} />{" "}
-        </button>
-      </div>
-    );
-  }
-
   function setCategories(event) {
     if (
       id === "category" &&
@@ -65,11 +40,6 @@ export default function Input({ label, id, type = "text" }) {
       dispatch(categoryActions.addCategory(inputValue.trim()));
       event.target.value = "";
     }
-  }
-
-  function findGoogleMapHandler(event) {
-    event.preventDefault();
-    console.log(placeRef.current.value);
   }
 
   return (
