@@ -1,10 +1,8 @@
 import { createPortal } from "react-dom";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { log } from "../../log";
 import { motion } from "framer-motion";
-import CategoryComponent from "../UI/CategoryComponent";
-import { useDispatch } from "react-redux";
-import { categoryActions } from "../../Store/schedule";
+import Input from "./Input";
 
 export default function Modal({ open, onClose, onSubmit, step }) {
   log("<Modal /> rendered");
@@ -69,51 +67,5 @@ export default function Modal({ open, onClose, onSubmit, step }) {
       </form>
     </motion.dialog>,
     document.getElementById("modal")
-  );
-}
-
-function Input({ label, id, type = "text" }) {
-  const [categories, setCategory] = useState([]);
-  const dispatch = useDispatch();
-  let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
-
-  let classWidth = "w-[500px]";
-  if (type === "date") {
-    classWidth = "w-full";
-  }
-
-  function setCategories(event) {
-    if (
-      id === "category" &&
-      (event.code === "Comma" ||
-        event.code === "Tab" ||
-        event.code === "Space" ||
-        event.type === "blur") &&
-      event.target.value.trim() !== ""
-    ) {
-      event.preventDefault();
-      let inputValue = event.target.value;
-      inputValue = inputValue.trim();
-      setCategory((prevCategory) => [...prevCategory, inputValue.split(",")]);
-      dispatch(categoryActions.addCategory(inputValue.trim()));
-      event.target.value = "";
-    }
-  } // 처음에 onKeyDown으로 했을 때, 키 입력이 버벅임 + 제대로 input이 초기화되지 않는 문제 발생 -> onKeyUp으로 해결
-
-  return (
-    <div className={`flex flex-col gap-1 my-4 ${classWidth}`}>
-      <label htmlFor={id}>{label}</label>
-      <input
-        type={type}
-        id={id}
-        name={id}
-        className={classes}
-        onKeyUp={id === "category" ? setCategories : null}
-        onBlur={id === "category" ? setCategories : null}
-      />
-      {categories.length >= 1 ? (
-        <CategoryComponent categories={categories} />
-      ) : null}
-    </div>
   );
 }

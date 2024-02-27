@@ -19,5 +19,18 @@ const modalSlice = createSlice({
   },
 });
 
+const profileSlice = createSlice({
+  name: "profile",
+  initialState: { openProfile: false },
+  reducers: {
+    clickProfile(state, actions) {
+      const isOpen = actions.payload;
+      state.openProfile = isOpen;
+    },
+  },
+});
+
+export const profileActions = profileSlice.actions;
+export const profileReducers = profileSlice.reducer;
 export const modalActions = modalSlice.actions;
 export default modalSlice.reducer;

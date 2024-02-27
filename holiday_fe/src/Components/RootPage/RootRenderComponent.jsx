@@ -1,7 +1,9 @@
-import { Outlet } from "react-router-dom";
-import Modal from "./Modal";
+import { Outlet, useNavigate } from "react-router-dom";
 import { memo } from "react";
-import { log } from "../../log";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchHandler } from "../../utils/http";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
@@ -9,7 +11,9 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../Store/modal";
 import { scheduleActions } from "../../Store/schedule";
-import { useNavigate } from "react-router-dom";
+
+import Modal from "./Modal";
+import { log } from "../../log";
 
 const MainPage = memo(function MainPage() {
   log("<RootRenderComponent /> rendered");
@@ -17,6 +21,11 @@ const MainPage = memo(function MainPage() {
   const { category } = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const { data, isPending, isError, error } = useQuery({
+  //   queryKey: ["schedules"],
+  //   queryFn: () => fetchHandler(),
+  // });
 
   function openModalHandler() {
     dispatch(modalActions.openFirstModal());

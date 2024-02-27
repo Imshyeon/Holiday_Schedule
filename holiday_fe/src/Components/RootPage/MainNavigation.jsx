@@ -5,23 +5,44 @@ import {
   faPlaneDeparture,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../logo.svg";
+import profile from "../../profile.svg";
 import Sidebar from "./Sidebar";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBtnActions } from "../../Store/sidebarToggle";
+import { profileActions } from "../../Store/modal";
+import AvatarProfile from "./AvatarProfile";
 
 export default function MainNavigation() {
   const { toggle } = useSelector((state) => state.toggle);
+  const { openProfile } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   function clickBurgerHandler() {
     dispatch(toggleBtnActions.toggleBtn());
   }
 
+  function clickAvatarHandler() {
+    if (openProfile) {
+      dispatch(profileActions.clickProfile(false));
+    } else {
+      dispatch(profileActions.clickProfile(true));
+    }
+  }
+
+  function closeAvatarHandler() {
+    if (openProfile) {
+      dispatch(profileActions.clickProfile(false));
+    }
+  }
+
   return (
     <>
-      <header className="z-20 bg-main-side fixed w-full right-0 max-xl:w-full">
+      <header
+        className="z-20 bg-main-side fixed w-full right-0 max-xl:w-full"
+        onClick={closeAvatarHandler}
+      >
         <nav className="h-1/6">
           <ul
             id="full-screen"
@@ -47,12 +68,17 @@ export default function MainNavigation() {
                 Article
               </Link>
             </li>
-            <div className="absolute top-0 right-3">
-              <img
-                className="App-logo flex-initial max-w-10 max-h-10 text-right"
-                src={logo}
-                alt="logo"
-              />
+            <div className="absolute top-1 right-3">
+              <div className="relative">
+                <button onClick={clickAvatarHandler} className="z-10">
+                  <img
+                    className="flex-initial max-w-9 max-h-9 text-right rounded-full"
+                    src={user.image || profile}
+                    alt="logo"
+                  />
+                </button>
+              </div>
+              {openProfile && <AvatarProfile open={openProfile} />}
             </div>
           </ul>
           <ul id="burger" className="xl:hidden max-xl:visible h-1/6">
@@ -83,11 +109,16 @@ export default function MainNavigation() {
               </div>
             </li>
             <div className="absolute top-2 right-3">
-              <img
-                className="App-logo flex-initial max-w-10 max-h-10 text-right"
-                src={logo}
-                alt="logo"
-              />
+              <div className="relative">
+                <button onClick={clickAvatarHandler} className="z-10">
+                  <img
+                    className="flex-initial max-w-10 max-h-10 text-right rounded-full"
+                    src={user.image || profile}
+                    alt="profile img"
+                  />
+                </button>
+              </div>
+              {openProfile && <AvatarProfile open={openProfile} />}
             </div>
           </ul>
         </nav>
