@@ -41,7 +41,8 @@ function SidebarItem({ title }) {
     <Link to="schedule/:id">
       {/* onClick 해서 burgerClickHandler 에서 false로 해야될듯..? -> redux 필요 */}
       <motion.button
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: [0.9, 1] }}
         onClick={clickBurgerHandler}
         className="mt-2 p-3 font-medium w-2/3 text-lg hover:bg-white rounded-2xl hover:p-3"
       >

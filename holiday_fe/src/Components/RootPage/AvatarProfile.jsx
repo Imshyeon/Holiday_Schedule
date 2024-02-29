@@ -26,7 +26,7 @@ export default function AvatarProfile() {
           <img
             src={user.image || profile}
             alt="user-img"
-            className="w-16 h-16 mb-2"
+            className="w-16 h-16 mb-2 rounded-full"
             onClick={closeProfileModalHandler}
           />
         </Link>

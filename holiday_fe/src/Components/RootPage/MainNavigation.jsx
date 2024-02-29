@@ -72,7 +72,7 @@ export default function MainNavigation() {
               <div className="relative">
                 <button onClick={clickAvatarHandler} className="z-10">
                   <img
-                    className="flex-initial max-w-9 max-h-9 text-right rounded-full"
+                    className="flex-initial w-9 h-9 text-right rounded-full"
                     src={user.image || profile}
                     alt="logo"
                   />
@@ -112,7 +112,7 @@ export default function MainNavigation() {
               <div className="relative">
                 <button onClick={clickAvatarHandler} className="z-10">
                   <img
-                    className="flex-initial max-w-10 max-h-10 text-right rounded-full"
+                    className="flex-initial w-10 h-10 text-right rounded-full"
                     src={user.image || profile}
                     alt="profile img"
                   />
