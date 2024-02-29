@@ -1,16 +1,47 @@
 import CategoryComponent from "../UI/CategoryComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { categoryActions } from "../../Store/schedule";
 import { useState } from "react";
 
-export default function Input({ label, id, type = "text" }) {
+export default function Input({ label, id, type = "text", placeholder }) {
   const [categories, setCategory] = useState([]);
+  const { schedule } = useSelector((state) => state.schedule);
+  const { step } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   let classes = `focus:outline-none rounded-xl p-3 border-b border-gray-500/40 focus:shadow-md`;
 
   let classWidth = "w-[500px]";
   if (type === "date") {
     classWidth = "w-full";
+  }
+
+  let value = undefined;
+  if (step === "first" && id === "title" && schedule.title !== undefined) {
+    value = schedule.title;
+  } else if (
+    step === "first" &&
+    id === "category" &&
+    schedule.category !== undefined
+  ) {
+    value = <CategoryComponent categories={schedule.category} />;
+  } else if (
+    step === "second" &&
+    id === "place" &&
+    schedule.place !== undefined
+  ) {
+    value = schedule.place;
+  } else if (
+    step === "second" &&
+    id === "startDate" &&
+    schedule.startDate !== undefined
+  ) {
+    value = schedule.startDate;
+  } else if (
+    step === "second" &&
+    id === "endDate" &&
+    schedule.endDate !== undefined
+  ) {
+    value = schedule.endDate;
   }
 
   let content = (
@@ -21,6 +52,9 @@ export default function Input({ label, id, type = "text" }) {
       className={classes}
       onKeyUp={id === "category" ? setCategories : null}
       onBlur={id === "category" ? setCategories : null}
+      required={id !== "category"}
+      placeholder={placeholder}
+      defaultValue={id !== "category" ? value : undefined}
     />
   );
 
@@ -49,6 +83,7 @@ export default function Input({ label, id, type = "text" }) {
       {categories.length >= 1 ? (
         <CategoryComponent categories={categories} />
       ) : null}
+      {categories.length === 0 && id === "category" && value}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { schedule: {} };
+const initialState = { schedule: {}, scheduleStage: 0 };
 
 const scheduleSlice = createSlice({
   name: "new-schedule",
@@ -10,8 +10,11 @@ const scheduleSlice = createSlice({
       const type = action.payload;
       if (type === "INITIALIZE") {
         state.scheduleStage = 0;
-      } else {
+        state.schedule = {};
+      } else if (type === "STAGE_PLUS") {
         state.scheduleStage++;
+      } else if (type === "STAGE_MINUS") {
+        state.scheduleStage--;
       }
     },
     createBasicInfo_Title(state, action) {
@@ -38,6 +41,7 @@ const scheduleSlice = createSlice({
     },
     createSchedule(state, action) {
       const detailSchedule = action.payload;
+      console.log(detailSchedule);
       state.schedule = {
         ...state.schedule,
         ...detailSchedule,
@@ -59,6 +63,9 @@ const categorySlice = createSlice({
     removeCategory(state, action) {
       const categoryId = action.payload;
       state.category = state.category.filter((item) => item !== categoryId);
+    },
+    removeAllCategories(state) {
+      state.category = [];
     },
   },
 });

@@ -1,4 +1,4 @@
-import profile from "../../profile.svg";
+import profile from "../../svg/profile.svg";
 
 export default function ProfileImage({ edit, changeUserProfileImage, image }) {
   return (

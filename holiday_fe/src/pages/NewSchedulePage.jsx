@@ -4,6 +4,8 @@ import { scheduleActions } from "../Store/schedule";
 import NewScheduleComponent from "../Components/NewSchedulePage/NewScheduleComponent";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { modalActions } from "../Store/modal";
 
 const label = "일차";
 const id = "day";
@@ -25,9 +27,7 @@ export default function NewSchedulePage() {
     const file = event.target.files[0];
     const fileId = event.target.id;
     const fileURL = URL.createObjectURL(file);
-    setImageFile((prevImageFile) => {
-      return [...prevImageFile, { image: fileURL, fileId }];
-    });
+    setImageFile((prevImage) => [...prevImage, { image: fileURL, fileId }]);
   }
 
   const travelDates = calculateTravelDates(
@@ -53,20 +53,27 @@ export default function NewSchedulePage() {
 
   function submitSchedule(event) {
     event.preventDefault();
-
+    console.log(event.target);
     const fd = new FormData(event.target);
     let data = Object.fromEntries(fd.entries());
     data = {
       ...data,
       image: imageFile, // blob으로 이미지 대체
     };
+    console.log(data);
     dispatch(scheduleActions.createSchedule(data));
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }
 
+  function closeNewPage() {
+    dispatch(modalActions.openSecondModal());
+    dispatch(scheduleActions.setStage("STAGE_MINUS"));
+    navigate("/");
+  }
+
   return (
-    <section className="h-dvh p-16 max-xl:p-20">
+    <section className="h-fit p-16 max-xl:p-20">
       <form onSubmit={submitSchedule}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-8">
@@ -110,16 +117,19 @@ export default function NewSchedulePage() {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
+            onClick={closeNewPage}
             className="text-sm font-semibold leading-6 text-gray-700 hover:text-gray-900"
           >
-            Cancel
+            이전
           </button>
-          <button
+          <motion.button
             type="submit"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
-            Save
-          </button>
+            저장
+          </motion.button>
         </div>
       </form>
     </section>

@@ -1,12 +1,9 @@
 import { createPortal } from "react-dom";
 import { useRef, useEffect } from "react";
-import { log } from "../../log";
 import { motion } from "framer-motion";
 import Input from "./Input";
 
 export default function Modal({ open, onClose, onSubmit, step }) {
-  log("<Modal /> rendered");
-
   const dialog = useRef();
 
   useEffect(() => {
@@ -20,20 +17,24 @@ export default function Modal({ open, onClose, onSubmit, step }) {
 
   let actions = (
     <menu className="mt-5 self-end flex flex-row gap-5">
-      <button
+      <motion.button
         type="button"
         onClick={onClose}
         tabIndex="-1"
         className="focus:outline-none hover:text-gray-700"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
-        취소
-      </button>
-      <button
+        {step !== "first" ? "이전" : "취소"}
+      </motion.button>
+      <motion.button
         className="bg-gray-50 px-4 py-1 rounded-lg focus:outline-none hover:bg-gray-100"
         tabIndex="-1"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         계속
-      </button>
+      </motion.button>
     </menu>
   );
 
@@ -50,13 +51,25 @@ export default function Modal({ open, onClose, onSubmit, step }) {
       >
         {step === "first" && (
           <>
-            <Input label="제목" id="title" />
-            <Input label="카테고리" id="category" />
+            <Input
+              label="제목"
+              id="title"
+              placeholder="제목을 입력해주세요. (ex. 🛩️ 유럽 여행)"
+            />
+            <Input
+              label="카테고리"
+              id="category"
+              placeholder="카테고리를 입력해주세요."
+            />
           </>
         )}
         {step === "second" && (
           <>
-            <Input label="여행 장소" id="place" />
+            <Input
+              label="여행 장소"
+              id="place"
+              placeholder="여행 장소를 입력해주세요. (ex. 유럽/프랑스/베트남)"
+            />
             <div className="flex flex-row gap-4 w-full">
               <Input label="일정 시작일" id="startDate" type="date" />
               <Input label="일정 종료일" id="endDate" type="date" />

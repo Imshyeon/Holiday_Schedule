@@ -5,7 +5,7 @@ import {
   faPlaneDeparture,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import profile from "../../profile.svg";
+import profile from "../../svg/profile.svg";
 import Sidebar from "./Sidebar";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,16 +58,16 @@ export default function MainNavigation() {
                 TIME TO TRAVEL
               </Link>
             </h1>
-            <li className="basis-1/12 p-2">
+            <motion.li className="basis-1/12 p-2" whileHover={{ scale: 1.08 }}>
               <Link to="tutorial" className="font-semibold">
                 시작하기
               </Link>
-            </li>
-            <li className="basis-1/12 p-2">
+            </motion.li>
+            <motion.li className="basis-1/12 p-2" whileHover={{ scale: 1.08 }}>
               <Link to="article/:id" className="font-semibold">
                 Article
               </Link>
-            </li>
+            </motion.li>
             <div className="absolute top-1 right-3">
               <div className="relative">
                 <button onClick={clickAvatarHandler} className="z-10">
