@@ -24,6 +24,24 @@ export default function Input({ label, id, type = "text", placeholder }) {
     schedule.category !== undefined
   ) {
     value = <CategoryComponent categories={schedule.category} />;
+  } else if (
+    step === "second" &&
+    id === "place" &&
+    schedule.place !== undefined
+  ) {
+    value = schedule.place;
+  } else if (
+    step === "second" &&
+    id === "startDate" &&
+    schedule.startDate !== undefined
+  ) {
+    value = schedule.startDate;
+  } else if (
+    step === "second" &&
+    id === "endDate" &&
+    schedule.endDate !== undefined
+  ) {
+    value = schedule.endDate;
   }
 
   let content = (
@@ -36,7 +54,7 @@ export default function Input({ label, id, type = "text", placeholder }) {
       onBlur={id === "category" ? setCategories : null}
       required={id !== "category"}
       placeholder={placeholder}
-      defaultValue={id === "title" ? value : undefined}
+      defaultValue={id !== "category" ? value : undefined}
     />
   );
 
@@ -65,7 +83,7 @@ export default function Input({ label, id, type = "text", placeholder }) {
       {categories.length >= 1 ? (
         <CategoryComponent categories={categories} />
       ) : null}
-      {id === "category" && value}
+      {categories.length === 0 && id === "category" && value}
     </div>
   );
 }

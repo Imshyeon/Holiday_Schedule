@@ -5,6 +5,7 @@ import NewScheduleComponent from "../Components/NewSchedulePage/NewScheduleCompo
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { modalActions } from "../Store/modal";
 
 const label = "일차";
 const id = "day";
@@ -26,9 +27,7 @@ export default function NewSchedulePage() {
     const file = event.target.files[0];
     const fileId = event.target.id;
     const fileURL = URL.createObjectURL(file);
-    setImageFile((prevImageFile) => {
-      return [...prevImageFile, { image: fileURL, fileId }];
-    });
+    setImageFile((prevImage) => [...prevImage, { image: fileURL, fileId }]);
   }
 
   const travelDates = calculateTravelDates(
@@ -61,8 +60,15 @@ export default function NewSchedulePage() {
       ...data,
       image: imageFile, // blob으로 이미지 대체
     };
+    console.log(data);
     dispatch(scheduleActions.createSchedule(data));
     dispatch(scheduleActions.setStage("INITIALIZE"));
+    navigate("/");
+  }
+
+  function closeNewPage() {
+    dispatch(modalActions.openSecondModal());
+    dispatch(scheduleActions.setStage("STAGE_MINUS"));
     navigate("/");
   }
 
@@ -111,9 +117,10 @@ export default function NewSchedulePage() {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
+            onClick={closeNewPage}
             className="text-sm font-semibold leading-6 text-gray-700 hover:text-gray-900"
           >
-            Cancel
+            이전
           </button>
           <motion.button
             type="submit"
@@ -121,7 +128,7 @@ export default function NewSchedulePage() {
             whileTap={{ scale: 0.9 }}
             className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
-            Save
+            저장
           </motion.button>
         </div>
       </form>

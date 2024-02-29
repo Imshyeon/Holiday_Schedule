@@ -70,23 +70,7 @@ const categorySlice = createSlice({
   },
 });
 
-const defailScheduleSlice = createSlice({
-  name: "category",
-  initialState: { detailSchedule: [] },
-  reducers: {
-    addDetailSchedule(state, action) {
-      const detailSchedule = action.payload;
-      state.detailSchedule = {
-        ...state.schedule,
-        ...detailSchedule,
-      };
-    },
-  },
-});
-
 export const scheduleActions = scheduleSlice.actions;
 export default scheduleSlice.reducer;
 export const categoryReducer = categorySlice.reducer;
 export const categoryActions = categorySlice.actions;
-export const detailScheduleReducer = defailScheduleSlice.reducer;
-export const detailScheduleActions = defailScheduleSlice.actions;

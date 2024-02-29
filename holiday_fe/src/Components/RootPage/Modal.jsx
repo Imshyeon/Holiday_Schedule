@@ -2,11 +2,9 @@ import { createPortal } from "react-dom";
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Input from "./Input";
-import { useSelector } from "react-redux";
 
 export default function Modal({ open, onClose, onSubmit, step }) {
   const dialog = useRef();
-  const { scheduleStage } = useSelector((state) => state.schedule);
 
   useEffect(() => {
     const modal = dialog.current;
@@ -27,7 +25,7 @@ export default function Modal({ open, onClose, onSubmit, step }) {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {scheduleStage === 1 ? "이전" : "취소"}
+        {step !== "first" ? "이전" : "취소"}
       </motion.button>
       <motion.button
         className="bg-gray-50 px-4 py-1 rounded-lg focus:outline-none hover:bg-gray-100"
