@@ -4,6 +4,7 @@ import { scheduleActions } from "../Store/schedule";
 import NewScheduleComponent from "../Components/NewSchedulePage/NewScheduleComponent";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const label = "일차";
 const id = "day";
@@ -53,7 +54,7 @@ export default function NewSchedulePage() {
 
   function submitSchedule(event) {
     event.preventDefault();
-
+    console.log(event.target);
     const fd = new FormData(event.target);
     let data = Object.fromEntries(fd.entries());
     data = {
@@ -66,7 +67,7 @@ export default function NewSchedulePage() {
   }
 
   return (
-    <section className="h-dvh p-16 max-xl:p-20">
+    <section className="h-fit p-16 max-xl:p-20">
       <form onSubmit={submitSchedule}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-8">
@@ -114,12 +115,14 @@ export default function NewSchedulePage() {
           >
             Cancel
           </button>
-          <button
+          <motion.button
             type="submit"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             Save
-          </button>
+          </motion.button>
         </div>
       </form>
     </section>

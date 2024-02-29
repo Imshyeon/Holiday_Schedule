@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { schedule: {} };
+const initialState = { schedule: {}, scheduleStage: 0 };
 
 const scheduleSlice = createSlice({
   name: "new-schedule",
@@ -10,8 +10,11 @@ const scheduleSlice = createSlice({
       const type = action.payload;
       if (type === "INITIALIZE") {
         state.scheduleStage = 0;
-      } else {
+        state.schedule = {};
+      } else if (type === "STAGE_PLUS") {
         state.scheduleStage++;
+      } else if (type === "STAGE_MINUS") {
+        state.scheduleStage--;
       }
     },
     createBasicInfo_Title(state, action) {
@@ -38,6 +41,7 @@ const scheduleSlice = createSlice({
     },
     createSchedule(state, action) {
       const detailSchedule = action.payload;
+      console.log(detailSchedule);
       state.schedule = {
         ...state.schedule,
         ...detailSchedule,
@@ -60,6 +64,23 @@ const categorySlice = createSlice({
       const categoryId = action.payload;
       state.category = state.category.filter((item) => item !== categoryId);
     },
+    removeAllCategories(state) {
+      state.category = [];
+    },
+  },
+});
+
+const defailScheduleSlice = createSlice({
+  name: "category",
+  initialState: { detailSchedule: [] },
+  reducers: {
+    addDetailSchedule(state, action) {
+      const detailSchedule = action.payload;
+      state.detailSchedule = {
+        ...state.schedule,
+        ...detailSchedule,
+      };
+    },
   },
 });
 
@@ -67,3 +88,5 @@ export const scheduleActions = scheduleSlice.actions;
 export default scheduleSlice.reducer;
 export const categoryReducer = categorySlice.reducer;
 export const categoryActions = categorySlice.actions;
+export const detailScheduleReducer = defailScheduleSlice.reducer;
+export const detailScheduleActions = defailScheduleSlice.actions;

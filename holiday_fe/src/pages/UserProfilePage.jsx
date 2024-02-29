@@ -3,7 +3,8 @@ import ProfileButton from "../Components/UserProfile/ProfileButton";
 import ProfileInput from "../Components/UserProfile/ProfileInput";
 import { userActions } from "../Store/user";
 import ProfileImage from "../Components/UserProfile/ProfileImage";
-import profile from "../profile.svg";
+import profile from "../svg/profile.svg";
+import { motion } from "framer-motion";
 
 export default function UserProfilePage() {
   const { edit, user } = useSelector((state) => state.user);
@@ -89,13 +90,15 @@ export default function UserProfilePage() {
                 />
               </div>
               <div className="col-start-6 flex items-right justify-end gap-x-6">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   type={edit ? "submit" : "button"}
                   onClick={edit ? null : clickUserButtonHandler}
                   className={`rounded-md ${classBtn} px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
                 >
                   {edit ? "Save" : "Edit"}
-                </button>
+                </motion.button>
               </div>
             </form>
           </div>

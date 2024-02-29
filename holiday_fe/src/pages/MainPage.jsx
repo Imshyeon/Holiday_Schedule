@@ -46,7 +46,7 @@ export default function MainPage() {
       <section className="xl:mx-10 max-xl:mx-5">
         <article className="mt-5 mb-8">
           <h3 className="font-bold">생성한 여행 스케줄</h3>
-          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
+          <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
             <motion.ul
               className="flex gap-5"
               variants={container}
@@ -64,7 +64,7 @@ export default function MainPage() {
         </article>
         <article className="mt-5 mb-8">
           <h3 className="font-bold">Articles</h3>
-          <div className="w-full h-64 mt-2 overflow-x-scroll overscroll-auto">
+          <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
             <motion.ul
               className="flex gap-5"
               variants={container}
@@ -102,13 +102,19 @@ function MainScheduleComponent({ item }) {
 
   return (
     <>
-      <motion.li variants={item} ref={itemRef}>
+      <motion.li
+        variants={item}
+        ref={itemRef}
+        whileTap={{ scale: [0.8, 1] }}
+        id=":id"
+      >
         <Link to="schedule/:id">
           <div className="h-64 w-64">
-            <img
+            <motion.img
               src={backgroundImg}
               alt="scroll example img"
-              className="h-64 mr-5 rounded-md hover:rounded-3xl"
+              className="h-64 mr-5 rounded-md "
+              whileHover={{ borderRadius: "20%", y: -10 }}
             />
           </div>
         </Link>
