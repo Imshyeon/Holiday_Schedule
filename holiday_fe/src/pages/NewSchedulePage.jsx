@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../Store/schedule";
-// import { fetchActions } from "../utils/fetch";
 import NewScheduleComponent from "../Components/NewSchedulePage/NewScheduleComponent";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { modalActions } from "../Store/modal";
+
+import { useMutation } from "@tanstack/react-query";
+import { createNewSchedule } from "../util/http";
 
 const label = "일차";
 const id = "day";
@@ -22,6 +24,10 @@ export default function NewSchedulePage() {
   const [imageFile, setImageFile] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { mutate, isError, error, isPending } = useMutation({
+    mutationFn: createNewSchedule,
+  });
 
   function selectFileHandler(event) {
     const file = event.target.files[0];

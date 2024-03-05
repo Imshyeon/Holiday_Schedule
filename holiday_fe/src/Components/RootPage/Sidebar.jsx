@@ -3,42 +3,68 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { toggleBtnActions } from "../../Store/sidebarToggle";
 
+import { useQuery } from "@tanstack/react-query";
+import { fetchHandler } from "../../util/http";
+
 export default function Sidebar({ isExpended }) {
+  // className
   let classExpend = "max-xl:hidden ";
   let classWidth = "w-auto";
   if (isExpended) {
     classExpend = "z-10 inline-block";
     classWidth = "w-80";
   }
+  // TanStack Query
+  let content;
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["schedules"],
+    queryFn: fetchHandler,
+  });
+
+  if (isPending) {
+    content = <p>불러오는 중....</p>;
+  }
+
+  if (isError) {
+    content = <p>에러 발생, ${error}</p>;
+  }
+
+  if (data) {
+    content = data.map((schedule) => {
+      return (
+        <SidebarList
+          category={schedule.category}
+          schedule={schedule}
+          classWidth={classWidth}
+        />
+      );
+    });
+  }
   return (
     <aside
       className={`${classExpend} bg-main-side flex flex-col w-1/6 min-h-screen mt-5`}
     >
-      <div className="text-center mt-20 grid grid-cols-1 gap-4">
-        <SidebarList category="해외" classWidth={classWidth} />
-        <SidebarList category="국내" classWidth={classWidth} />
-      </div>
+      <div className="text-center mt-20 grid grid-cols-1 gap-4">{content}</div>
     </aside>
   );
 }
 
-function SidebarList({ classWidth, category }) {
+function SidebarList({ classWidth, category, schedule }) {
   return (
     <div className={`${classWidth} p-4`}>
       <div className="border-b-[1px] text-left border-divider">{category}</div>
-      {category === "해외" && <SidebarItem title="✈️ 베트남 여행" />}
-      {category === "국내" && <SidebarItem title="🚎 군산 여행" />}
+      <SidebarItem title={schedule.title} link={`schedule/${schedule.id}`} />
     </div>
   );
 }
 
-function SidebarItem({ title }) {
+function SidebarItem({ title, link }) {
   const dispatch = useDispatch();
   function clickBurgerHandler() {
     dispatch(toggleBtnActions.toggleBtn());
   }
   return (
-    <Link to="schedule/:id">
+    <Link to={link}>
       {/* onClick 해서 burgerClickHandler 에서 false로 해야될듯..? -> redux 필요 */}
       <motion.button
         whileHover={{ scale: 1.1 }}

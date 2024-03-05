@@ -1,59 +1,50 @@
-import backgroundImg from "../backgroundImg.jpg";
 import DetailComponent from "../Components/DetailPage/DetailComponent";
 
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchScheduleDetailHandler, queryClient } from "../util/http";
+import DetailSchedule from "../Components/DetailPage/DetailSchedule";
+
 // schdule, article, tutorial 페이지 모두 해당 jsx를 리턴 -> 데이터를 알맞게 배치.
-export default function DetailPage() {
+export default function ScheduleDetailPage() {
   const categories = ["카테고리", "여행 장소", "여행 일정"];
-  return (
-    <>
-      <DetailComponent title="🛩️ 베트남 여행" categories={categories}>
-        <div className="mb-5">
-          <h3 className="text-xl font-bold">1일차</h3>
-          <div className="h-fit bg-gray-100 rounded-xl mt-3 p-5 whitespace-pre-line flex flex-auto gap-3 items-center">
-            <img
-              src={backgroundImg}
-              alt="sample img"
-              className="w-auto h-32 object-cover rounded-tl-lg rounded-br-lg"
-            />
-            <p className="text-pretty">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam a
-              reiciendis, necessitatibus accusamus dolorum cumque? Nobis
-              possimus quo totam, asperiores, in libero illum cumque unde,
-              impedit quae excepturi perferendis. Incidunt. Lorem ipsum, dolor
-              sit amet consectetur adipisicing elit. Est architecto dolores,
-              recusandae officiis non nostrum minima repellendus eius soluta
-              ullam aut quas qui maiores voluptates, illum vero hic quos
-              perferendis. Quidem sequi voluptates dolores officiis. Expedita,
-              in, illum sit ab facere inventore dolor magni enim possimus quasi
-              veritatis perspiciatis ea laboriosam, maxime excepturi placeat
-              facilis porro mollitia quia eius delectus.
-            </p>
-          </div>
-        </div>
-        <div className="mb-5">
-          <h3 className="text-xl font-bold">2일차</h3>
-          <div className="h-fit bg-gray-100 rounded-xl mt-3 p-5 whitespace-pre-line flex flex-auto gap-3 items-center">
-            <img
-              src={backgroundImg}
-              alt="sample img"
-              className="w-auto h-32 object-cover rounded-tl-lg rounded-br-lg"
-            />
-            <p className="text-pretty">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam a
-              reiciendis, necessitatibus accusamus dolorum cumque? Nobis
-              possimus quo totam, asperiores, in libero illum cumque unde,
-              impedit quae excepturi perferendis. Incidunt. Lorem ipsum, dolor
-              sit amet consectetur adipisicing elit. Est architecto dolores,
-              recusandae officiis non nostrum minima repellendus eius soluta
-              ullam aut quas qui maiores voluptates, illum vero hic quos
-              perferendis. Quidem sequi voluptates dolores officiis. Expedita,
-              in, illum sit ab facere inventore dolor magni enim possimus quasi
-              veritatis perspiciatis ea laboriosam, maxime excepturi placeat
-              facilis porro mollitia quia eius delectus.
-            </p>
-          </div>
-        </div>
+  const params = useParams();
+
+  console.log(params.id);
+
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["schedule", { id: params.id }],
+    queryFn: ({ signal }) =>
+      fetchScheduleDetailHandler({ signal, id: params.id }),
+  });
+
+  let content;
+  if (isPending) {
+    content = <p>불러오는 중 입니다...</p>;
+  }
+
+  if (isError) {
+    content = <p>{error}</p>;
+  }
+
+  if (data) {
+    content = (
+      <DetailComponent
+        title={data.title}
+        categories={categories}
+        startDate={data.startDate}
+        endDate={data.endDate}
+        place={data.place}
+        id="schedule"
+      >
+        <DetailSchedule
+          title="1일차"
+          image={data["cover_image"]}
+          content={data.content}
+        />
       </DetailComponent>
-    </>
-  );
+    );
+  }
+
+  return <>{content}</>;
 }

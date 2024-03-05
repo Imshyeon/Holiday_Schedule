@@ -1,8 +1,7 @@
-import { log } from "../log";
 import backgroundImg from "../backgroundImg.jpg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchHandler } from "../util/http";
@@ -56,6 +55,7 @@ export default function MainPage() {
                 <MainScheduleComponent
                   key={schedule.id}
                   item={item}
+                  link={`schedule/${schedule.id}`}
                   name={schedule.title}
                   coverImage={schedule["cover_image"]}
                 />
@@ -90,13 +90,13 @@ export default function MainPage() {
               variants={container}
               animate="show"
             >
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
-              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
+              <MainScheduleComponent item={item} link={"article/:id"} />
             </motion.ul>
           </div>
         </article>
@@ -117,7 +117,7 @@ export default function MainPage() {
   );
 }
 
-function MainScheduleComponent({ item, coverImage, name }) {
+function MainScheduleComponent({ item, coverImage, name, link }) {
   const itemRef = useRef(null);
 
   return (
@@ -128,7 +128,7 @@ function MainScheduleComponent({ item, coverImage, name }) {
         whileTap={{ scale: [0.8, 1] }}
         id=":id"
       >
-        <Link to="schedule/:id">
+        <Link to={link}>
           <div className="h-64 w-64">
             <motion.img
               src={coverImage || backgroundImg}
