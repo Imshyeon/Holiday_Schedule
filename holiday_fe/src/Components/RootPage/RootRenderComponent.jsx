@@ -1,9 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { memo } from "react";
 
-import { useQuery } from "@tanstack/react-query";
-import { fetchHandler } from "../../utils/http";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
@@ -19,11 +16,6 @@ const MainPage = memo(function MainPage() {
   const { category } = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const { data, isPending, isError, error } = useQuery({
-  //   queryKey: ["schedules"],
-  //   queryFn: () => fetchHandler(),
-  // });
 
   function openModalHandler() {
     dispatch(modalActions.openFirstModal());
