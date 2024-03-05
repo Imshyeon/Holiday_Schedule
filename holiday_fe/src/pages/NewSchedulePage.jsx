@@ -5,12 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { modalActions } from "../Store/modal";
+import imagePlus from "../svg/image-plus.svg";
 
 import { useMutation } from "@tanstack/react-query";
 import { createNewSchedule } from "../util/http";
 
+import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
+
 const label = "일차";
 const id = "day";
+
+const initialValues = {
+  content: [{ content: "", url: "", location: "" }],
+};
 
 function calculateTravelDates(startDate, endDate) {
   // 몇박 몇일인지 계산하는 로직
@@ -21,7 +28,7 @@ function calculateTravelDates(startDate, endDate) {
 
 export default function NewSchedulePage() {
   const { schedule } = useSelector((state) => state.schedule);
-  const [imageFile, setImageFile] = useState([]);
+  const [images, setImages] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,17 +36,18 @@ export default function NewSchedulePage() {
     mutationFn: createNewSchedule,
   });
 
-  function selectFileHandler(event) {
-    const file = event.target.files[0];
-    const fileId = event.target.id;
-    const fileURL = URL.createObjectURL(file);
-    setImageFile((prevImage) => [...prevImage, { image: fileURL, fileId }]);
-  }
-
   const travelDates = calculateTravelDates(
     schedule.startDate,
     schedule.endDate
   );
+
+  function handleImageChange(event) {
+    const files = Array.from(event.target.files);
+    console.log(files[0]);
+    setImages(files[0]);
+  }
+
+  console.log();
 
   function createDetailSchedule() {
     let schedules = [];
@@ -50,28 +58,46 @@ export default function NewSchedulePage() {
           key={date}
           label={date + label}
           id={id + date}
-          onChange={selectFileHandler}
+          name={`content[${date - 1}].content`}
         />
       );
     }
     return schedules;
   }
 
-  function submitSchedule(event) {
-    event.preventDefault();
-    console.log(event.target);
-    const fd = new FormData(event.target);
-    let data = Object.fromEntries(fd.entries());
-    data = {
-      ...data,
-      image: imageFile, // blob으로 이미지 대체
-    };
+  function submitSchedule(values) {
+    const { content } = values;
+    console.log(content);
+    const data = { ...schedule, content };
     console.log(data);
     dispatch(scheduleActions.createSchedule(data));
-    mutate({ ...schedule, content: { ...data } });
+    mutate({ ...data, cover_image: images });
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }
+
+  // function submitSchedule(event) {
+  //   event.preventDefault();
+  //   console.log(event.target);
+  //   const fd = new FormData(event.target);
+  //   imageFile.forEach((file, index) => {
+  //     fd.append(`image_${index}`, file);
+  //   });
+  //   let data = Object.fromEntries(fd.entries());
+  //   data = {
+  //     ...data,
+  //     // image: imageFile, // blob으로 이미지 대체
+  //   };
+  //   console.log(data);
+  //   dispatch(scheduleActions.createSchedule(data));
+  //   mutate({
+  //     ...schedule,
+  //     content: { ...data },
+  //     // cover_image: imageFile[0].image,
+  //   });
+  //   dispatch(scheduleActions.setStage("INITIALIZE"));
+  //   navigate("/");
+  // }
 
   function closeNewPage() {
     dispatch(modalActions.openSecondModal());
@@ -81,64 +107,87 @@ export default function NewSchedulePage() {
 
   return (
     <section className="h-fit p-16 max-xl:p-20">
-      <form onSubmit={submitSchedule}>
-        <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-8">
-            <article className="basic-schedule-info">
-              <div className="title flex flex-row justify-between items-center">
-                <h1 className="text-3xl font-extrabold">{schedule.title}</h1>
-              </div>
-              <div className="sub-title flex flex-row justify-start gap-2">
-                {schedule.category.map((category) => {
-                  return (
-                    <button
-                      key={category}
-                      className="bg-gray-100 rounded-full px-3 py-1 mt-2"
-                      disabled
-                    >
-                      {category}
-                    </button>
-                  );
-                })}
-                <button
-                  key="place"
-                  className="bg-gray-100 rounded-full px-3 py-1 mt-2"
-                  disabled
-                >
-                  {schedule.place}
-                </button>
-                <button
-                  key="date"
-                  className="bg-gray-100 rounded-full px-3 py-1 mt-2"
-                  disabled
-                >
-                  {schedule.startDate} ~ {schedule.endDate}
-                </button>
-              </div>
-            </article>
+      <Formik onSubmit={submitSchedule} initialValues={initialValues}>
+        <Form>
+          <div className="space-y-12">
+            <div className="border-b border-gray-900/10 pb-8">
+              <article className="basic-schedule-info">
+                <div className="title flex flex-row justify-between items-center">
+                  <h1 className="text-3xl font-extrabold">{schedule.title}</h1>
+                </div>
+                <div className="sub-title flex flex-row justify-start gap-2">
+                  {schedule.category.map((category) => {
+                    return (
+                      <button
+                        key={category}
+                        className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                        disabled
+                      >
+                        {category}
+                      </button>
+                    );
+                  })}
+                  <button
+                    key="place"
+                    className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                    disabled
+                  >
+                    {schedule.place}
+                  </button>
+                  <button
+                    key="date"
+                    className="bg-gray-100 rounded-full px-3 py-1 mt-2"
+                    disabled
+                  >
+                    {schedule.startDate} ~ {schedule.endDate}
+                  </button>
+                </div>
+              </article>
+            </div>
+            {/* 이미지 */}
+            <motion.label
+              htmlFor={id}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: [0.8, 1] }}
+            >
+              <img
+                src={imagePlus}
+                alt="add-img"
+                className="w-8 h-8 cursor-pointer mt-5"
+              />
+            </motion.label>
+            <input
+              type="file"
+              id={id}
+              name="cover_image"
+              onChange={handleImageChange}
+              accept="image/*"
+              className="hidden"
+              multiple
+            />
+            <FieldArray name="content">
+              {({ push, remove }) => travelDates >= 0 && createDetailSchedule()}
+            </FieldArray>
           </div>
-          {/* 세부일정 -> 이전 모달에서 받아온 일정대로 출력. */}
-          {travelDates >= 0 && createDetailSchedule()}
-          {/* ==== */}
-        </div>
-        <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            onClick={closeNewPage}
-            className="text-sm font-semibold leading-6 text-gray-700 hover:text-gray-900"
-          >
-            이전
-          </button>
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          >
-            저장
-          </motion.button>
-        </div>
-      </form>
+          <div className="mt-6 flex items-center justify-end gap-x-6">
+            <button
+              type="button"
+              onClick={closeNewPage}
+              className="text-sm font-semibold leading-6 text-gray-700 hover:text-gray-900"
+            >
+              이전
+            </button>
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="rounded-md bg-make-schedule-btn px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              저장
+            </motion.button>
+          </div>
+        </Form>
+      </Formik>
     </section>
   );
 }
