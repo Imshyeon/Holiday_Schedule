@@ -33,6 +33,7 @@ export default function Sidebar({ isExpended }) {
     content = data.map((schedule) => {
       return (
         <SidebarList
+          key={schedule.category}
           category={schedule.category}
           schedule={schedule}
           classWidth={classWidth}

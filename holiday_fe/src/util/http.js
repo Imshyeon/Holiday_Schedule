@@ -44,7 +44,7 @@ export async function deleteScheduleHandler({ id }) {
 
 export async function createNewSchedule(scheduleData) {
   console.log(scheduleData);
-  const response = await fetch("http://127.0.0.1:8000/schedule", {
+  const response = await fetch("http://127.0.0.1:8000/schedule/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -56,6 +56,7 @@ export async function createNewSchedule(scheduleData) {
     throw new Error("스케줄을 저장하는데 실패했습니다. 다시 시도해주세요.");
   }
 
-  const { schedule } = await response.json();
+  const schedule = await response.json();
+  console.log(schedule);
   return schedule;
 }

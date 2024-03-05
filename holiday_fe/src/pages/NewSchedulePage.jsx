@@ -68,6 +68,7 @@ export default function NewSchedulePage() {
     };
     console.log(data);
     dispatch(scheduleActions.createSchedule(data));
+    mutate({ ...schedule, content: { ...data } });
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }
