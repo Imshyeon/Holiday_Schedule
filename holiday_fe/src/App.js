@@ -14,6 +14,8 @@ import ErrorPage from "./pages/ErrorPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import NewSchedulePage from "./pages/NewSchedulePage";
 
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,8 +62,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

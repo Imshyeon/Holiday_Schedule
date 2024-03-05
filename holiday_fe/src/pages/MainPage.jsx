@@ -1,9 +1,11 @@
 import { log } from "../log";
 import backgroundImg from "../backgroundImg.jpg";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchHandler } from "../util/http";
 
 import GoogleMapComponent from "../Components/Google/GoogleMapComponent";
 import Marker from "../Components/Google/Marker";
@@ -11,9 +13,8 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 const GOOGLE_API_KEY = "AIzaSyBwXhlspBZwf-kAjV6pWsx9VIxNrFdP3uk";
 
 export default function MainPage() {
-  const schedule = useSelector((state) => state.schedule);
-
-  log("<MainPage /> rendered");
+  const [data, setData] = useState();
+  // Framer Motioin
   const container = {
     show: {
       opacity: 1,
@@ -22,7 +23,6 @@ export default function MainPage() {
       },
     },
   };
-
   const item = {
     show: {
       opacity: 1,
@@ -30,6 +30,70 @@ export default function MainPage() {
     },
   };
 
+  // TanStack Query
+  // let content;
+
+  // const { data, isPending, isError, error } = useQuery({
+  //   queryKey: ["schedules"],
+  //   queryFn: fetchHandler,
+  // });
+
+  // console.log(fetchHandler);
+  // if (isPending) {
+  //   content = <p>불러오는 중....</p>;
+  // }
+
+  // if (isError) {
+  //   content = <p>에러 발생, ${error}</p>;
+  // }
+
+  // if (data) {
+  //   content = (
+  //     <article className="mt-5 mb-8">
+  //       <h3 className="font-bold">생성한 여행 스케줄</h3>
+  //       <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
+  //         <motion.ul className="flex gap-5" variants={container} animate="show">
+  //           {data.map((schedule) => {
+  //             console.log(schedule);
+  //             return <MainScheduleComponent item={item} />;
+  //           })}
+  //         </motion.ul>
+  //       </div>
+  //     </article>
+  //   );
+  // }
+  useEffect(() => {
+    async function fetchHandler() {
+      const response = await fetch("http://127.0.0.1:8000/schedule/");
+
+      if (!response.ok) {
+        throw new Error("작성한 스케줄을 불러올 수 없습니다.");
+      }
+
+      const schedules = await response.json();
+      console.log(schedules);
+
+      return schedules;
+    }
+
+    fetchHandler().then((data) => setData(data));
+  }, []);
+
+  let content;
+  if (data) {
+    console.log(data);
+    content = data.map((schedule) => {
+      console.log(schedule["cover_image"]);
+      return (
+        <MainScheduleComponent
+          key={schedule.id}
+          item={item}
+          name={schedule.title}
+          coverImage={schedule["cover_image"]}
+        />
+      );
+    });
+  }
   return (
     <>
       <section className="bg-gray-500 h-64 p-5">
@@ -52,13 +116,7 @@ export default function MainPage() {
               variants={container}
               animate="show"
             >
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
+              {content}
             </motion.ul>
           </div>
         </article>
@@ -70,13 +128,13 @@ export default function MainPage() {
               variants={container}
               animate="show"
             >
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
-              <MainScheduleComponent item={item} schedule={schedule} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
+              <MainScheduleComponent item={item} />
             </motion.ul>
           </div>
         </article>
@@ -97,7 +155,7 @@ export default function MainPage() {
   );
 }
 
-function MainScheduleComponent({ item }) {
+function MainScheduleComponent({ item, coverImage, name }) {
   const itemRef = useRef(null);
 
   return (
@@ -111,8 +169,8 @@ function MainScheduleComponent({ item }) {
         <Link to="schedule/:id">
           <div className="h-64 w-64">
             <motion.img
-              src={backgroundImg}
-              alt="scroll example img"
+              src={coverImage || backgroundImg}
+              alt={name}
               className="h-64 mr-5 rounded-md "
               whileHover={{ borderRadius: "20%", y: -10 }}
             />
