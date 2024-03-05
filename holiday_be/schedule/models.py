@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 
 class Schedule(models.Model):
     title = models.CharField(max_length=128)
-    category = models.CharField(max_length=100)
+    category = models.JSONField()
     place = models.CharField(max_length=128)
     startDate = models.DateTimeField()
     endDate = models.DateTimeField()
     cover_image = models.ImageField(upload_to='image/schedule_covers/', blank=True, null=True)
-    content = models.TextField()
+    content = models.JSONField()
 
     def __str__(self):
         return self.title
