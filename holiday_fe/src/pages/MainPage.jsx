@@ -13,7 +13,6 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 const GOOGLE_API_KEY = "AIzaSyBwXhlspBZwf-kAjV6pWsx9VIxNrFdP3uk";
 
 export default function MainPage() {
-  const [data, setData] = useState();
   // Framer Motioin
   const container = {
     show: {
@@ -31,69 +30,43 @@ export default function MainPage() {
   };
 
   // TanStack Query
-  // let content;
-
-  // const { data, isPending, isError, error } = useQuery({
-  //   queryKey: ["schedules"],
-  //   queryFn: fetchHandler,
-  // });
-
-  // console.log(fetchHandler);
-  // if (isPending) {
-  //   content = <p>불러오는 중....</p>;
-  // }
-
-  // if (isError) {
-  //   content = <p>에러 발생, ${error}</p>;
-  // }
-
-  // if (data) {
-  //   content = (
-  //     <article className="mt-5 mb-8">
-  //       <h3 className="font-bold">생성한 여행 스케줄</h3>
-  //       <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
-  //         <motion.ul className="flex gap-5" variants={container} animate="show">
-  //           {data.map((schedule) => {
-  //             console.log(schedule);
-  //             return <MainScheduleComponent item={item} />;
-  //           })}
-  //         </motion.ul>
-  //       </div>
-  //     </article>
-  //   );
-  // }
-  useEffect(() => {
-    async function fetchHandler() {
-      const response = await fetch("http://127.0.0.1:8000/schedule/");
-
-      if (!response.ok) {
-        throw new Error("작성한 스케줄을 불러올 수 없습니다.");
-      }
-
-      const schedules = await response.json();
-      console.log(schedules);
-
-      return schedules;
-    }
-
-    fetchHandler().then((data) => setData(data));
-  }, []);
-
   let content;
-  if (data) {
-    console.log(data);
-    content = data.map((schedule) => {
-      console.log(schedule["cover_image"]);
-      return (
-        <MainScheduleComponent
-          key={schedule.id}
-          item={item}
-          name={schedule.title}
-          coverImage={schedule["cover_image"]}
-        />
-      );
-    });
+
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["schedules"],
+    queryFn: fetchHandler,
+  });
+
+  if (isPending) {
+    content = <p>불러오는 중....</p>;
   }
+
+  if (isError) {
+    content = <p>에러 발생, ${error}</p>;
+  }
+
+  if (data) {
+    content = (
+      <article className="mt-5 mb-8">
+        <h3 className="font-bold">생성한 여행 스케줄</h3>
+        <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
+          <motion.ul className="flex gap-5" variants={container} animate="show">
+            {data.map((schedule) => {
+              return (
+                <MainScheduleComponent
+                  key={schedule.id}
+                  item={item}
+                  name={schedule.title}
+                  coverImage={schedule["cover_image"]}
+                />
+              );
+            })}
+          </motion.ul>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <>
       <section className="bg-gray-500 h-64 p-5">
@@ -108,18 +81,7 @@ export default function MainPage() {
         </div>
       </section>
       <section className="xl:mx-10 max-xl:mx-5">
-        <article className="mt-5 mb-8">
-          <h3 className="font-bold">생성한 여행 스케줄</h3>
-          <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
-            <motion.ul
-              className="flex gap-5"
-              variants={container}
-              animate="show"
-            >
-              {content}
-            </motion.ul>
-          </div>
-        </article>
+        {content}
         <article className="mt-5 mb-8">
           <h3 className="font-bold">Articles</h3>
           <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">

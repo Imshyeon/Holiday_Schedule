@@ -8,8 +8,7 @@ export async function fetchHandler() {
     throw new Error("작성한 스케줄을 불러올 수 없습니다.");
   }
 
-  const { schedules } = await response.json();
-  console.log(schedules);
+  const schedules = await response.json();
 
   return schedules;
 }
