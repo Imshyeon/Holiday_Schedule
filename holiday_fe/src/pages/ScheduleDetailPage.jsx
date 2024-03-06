@@ -10,8 +10,6 @@ export default function ScheduleDetailPage() {
   const categories = ["카테고리", "여행 장소", "여행 일정"];
   const params = useParams();
 
-  console.log(params.id);
-
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["schedule", { id: params.id }],
     queryFn: ({ signal }) =>
@@ -31,17 +29,13 @@ export default function ScheduleDetailPage() {
     content = (
       <DetailComponent
         title={data.title}
-        categories={categories}
+        categories={data.category}
         startDate={data.startDate}
         endDate={data.endDate}
         place={data.place}
         id="schedule"
       >
-        <DetailSchedule
-          title="1일차"
-          image={data["cover_image"]}
-          content={data.content}
-        />
+        <DetailSchedule content={data.content} />
       </DetailComponent>
     );
   }
