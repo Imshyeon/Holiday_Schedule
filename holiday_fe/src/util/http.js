@@ -42,14 +42,10 @@ export async function deleteScheduleHandler({ id }) {
   return response.json();
 }
 
-export async function createNewSchedule(scheduleData) {
-  console.log(scheduleData);
+export async function createNewSchedule(scheduleFormData) {
   const response = await fetch("http://127.0.0.1:8000/schedule/", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(scheduleData),
+    body: scheduleFormData,
   });
 
   if (!response.ok) {

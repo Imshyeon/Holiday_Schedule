@@ -10,7 +10,7 @@ import imagePlus from "../svg/image-plus.svg";
 import { useMutation } from "@tanstack/react-query";
 import { createNewSchedule } from "../util/http";
 
-import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
+import { Formik, Form, FieldArray } from "formik";
 
 const label = "일차";
 const id = "day";
@@ -28,7 +28,7 @@ function calculateTravelDates(startDate, endDate) {
 
 export default function NewSchedulePage() {
   const { schedule } = useSelector((state) => state.schedule);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,11 +43,9 @@ export default function NewSchedulePage() {
 
   function handleImageChange(event) {
     const files = Array.from(event.target.files);
-    console.log(files[0]);
+    console.log(files[0].name, files[0]);
     setImages(files[0]);
   }
-
-  console.log();
 
   function createDetailSchedule() {
     let schedules = [];
@@ -67,37 +65,21 @@ export default function NewSchedulePage() {
 
   function submitSchedule(values) {
     const { content } = values;
-    console.log(content);
-    const data = { ...schedule, content };
-    console.log(data);
-    dispatch(scheduleActions.createSchedule(data));
-    mutate({ ...data, cover_image: images });
+    const data = { ...schedule, content, cover_image: images };
+
+    const scheduleFormData = new FormData();
+    for (const [key, value] of Object.entries(data)) {
+      console.log(key, value);
+      if (key === "content" || key === "category") {
+        scheduleFormData.append(key, JSON.stringify(value));
+      } else {
+        scheduleFormData.append(key, value);
+      }
+    }
+    mutate(scheduleFormData);
     dispatch(scheduleActions.setStage("INITIALIZE"));
     navigate("/");
   }
-
-  // function submitSchedule(event) {
-  //   event.preventDefault();
-  //   console.log(event.target);
-  //   const fd = new FormData(event.target);
-  //   imageFile.forEach((file, index) => {
-  //     fd.append(`image_${index}`, file);
-  //   });
-  //   let data = Object.fromEntries(fd.entries());
-  //   data = {
-  //     ...data,
-  //     // image: imageFile, // blob으로 이미지 대체
-  //   };
-  //   console.log(data);
-  //   dispatch(scheduleActions.createSchedule(data));
-  //   mutate({
-  //     ...schedule,
-  //     content: { ...data },
-  //     // cover_image: imageFile[0].image,
-  //   });
-  //   dispatch(scheduleActions.setStage("INITIALIZE"));
-  //   navigate("/");
-  // }
 
   function closeNewPage() {
     dispatch(modalActions.openSecondModal());

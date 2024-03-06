@@ -130,12 +130,14 @@ function MainScheduleComponent({ item, coverImage, name, link }) {
       >
         <Link to={link}>
           <div className="h-64 w-64">
-            <motion.img
-              src={coverImage || backgroundImg}
-              alt={name}
-              className="h-64 mr-5 rounded-md "
-              whileHover={{ borderRadius: "20%", y: -10 }}
-            />
+            <motion.figure whileHover={{ borderRadius: "20%", y: -10 }}>
+              <img
+                src={coverImage || backgroundImg}
+                alt={name}
+                className="h-60 mr-5 rounded-md "
+              />
+              <figcaption className="text-center mt-1">{name}</figcaption>
+            </motion.figure>
           </div>
         </Link>
       </motion.li>
