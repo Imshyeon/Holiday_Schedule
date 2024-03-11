@@ -41,14 +41,14 @@ const scheduleSlice = createSlice({
         endDate: basicInfo.endDate,
       };
     },
-    createSchedule(state, action) {
-      const detailSchedule = action.payload;
-      console.log(detailSchedule);
-      state.schedule = {
-        ...state.schedule,
-        ...detailSchedule,
-      };
-    },
+    // createSchedule(state, action) {
+    //   const detailSchedule = action.payload;
+    //   console.log(detailSchedule);
+    //   state.schedule = {
+    //     ...state.schedule,
+    //     ...detailSchedule,
+    //   };
+    // },
   },
 });
 

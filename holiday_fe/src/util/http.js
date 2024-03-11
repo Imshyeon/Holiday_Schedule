@@ -30,7 +30,7 @@ export async function fetchScheduleDetailHandler({ id, signal }) {
   return schedule;
 }
 
-export async function deleteScheduleHandler({ id }) {
+export async function deleteScheduleHandler(id) {
   const response = await fetch("http://127.0.0.1:8000/schedule/" + id, {
     method: "DELETE",
   });
@@ -39,7 +39,7 @@ export async function deleteScheduleHandler({ id }) {
     throw new Error("해당 스케줄을 삭제할 수 없습니다.");
   }
 
-  return response.json();
+  return response.status;
 }
 
 export async function createNewSchedule(scheduleFormData) {

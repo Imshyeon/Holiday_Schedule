@@ -6,6 +6,8 @@ import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHandler } from "../util/http";
 
+import { Loading, ErrorMessage } from "../Components/UI/DataIndicator";
+
 import GoogleMapComponent from "../Components/Google/GoogleMapComponent";
 import Marker from "../Components/Google/Marker";
 import { Wrapper } from "@googlemaps/react-wrapper";
@@ -37,33 +39,28 @@ export default function MainPage() {
   });
 
   if (isPending) {
-    content = <p>불러오는 중....</p>;
+    content = <Loading text="데이터를 불러오는 중입니다..." />;
   }
 
   if (isError) {
-    content = <p>에러 발생, ${error}</p>;
+    content = <p className="text-red-400">{error.message}</p>;
   }
 
   if (data) {
     content = (
-      <article className="mt-5 mb-8">
-        <h3 className="font-bold">생성한 여행 스케줄</h3>
-        <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
-          <motion.ul className="flex gap-5" variants={container} animate="show">
-            {data.map((schedule) => {
-              return (
-                <MainScheduleComponent
-                  key={schedule.id}
-                  item={item}
-                  link={`schedule/${schedule.id}`}
-                  name={schedule.title}
-                  coverImage={schedule["cover_image"]}
-                />
-              );
-            })}
-          </motion.ul>
-        </div>
-      </article>
+      <motion.ul className="flex gap-5" variants={container} animate="show">
+        {data.map((schedule) => {
+          return (
+            <MainScheduleComponent
+              key={schedule.id}
+              item={item}
+              link={`schedule/${schedule.id}`}
+              name={schedule.title}
+              coverImage={schedule["cover_image"]}
+            />
+          );
+        })}
+      </motion.ul>
     );
   }
 
@@ -81,7 +78,12 @@ export default function MainPage() {
         </div>
       </section>
       <section className="xl:mx-10 max-xl:mx-5">
-        {content}
+        <article className="mt-5 mb-8">
+          <h3 className="font-bold">생성한 여행 스케줄</h3>
+          <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
+            {content}
+          </div>
+        </article>
         <article className="mt-5 mb-8">
           <h3 className="font-bold">Articles</h3>
           <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">

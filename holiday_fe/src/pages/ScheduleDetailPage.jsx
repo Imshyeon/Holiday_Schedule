@@ -2,12 +2,11 @@ import DetailComponent from "../Components/DetailPage/DetailComponent";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchScheduleDetailHandler, queryClient } from "../util/http";
+import { fetchScheduleDetailHandler } from "../util/http";
 import DetailSchedule from "../Components/DetailPage/DetailSchedule";
 
 // schdule, article, tutorial 페이지 모두 해당 jsx를 리턴 -> 데이터를 알맞게 배치.
 export default function ScheduleDetailPage() {
-  const categories = ["카테고리", "여행 장소", "여행 일정"];
   const params = useParams();
 
   const { data, isPending, isError, error } = useQuery({

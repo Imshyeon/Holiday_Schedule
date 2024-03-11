@@ -5,6 +5,7 @@ import { toggleBtnActions } from "../../Store/sidebarToggle";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchHandler } from "../../util/http";
+import { Loading } from "../UI/DataIndicator";
 
 export default function Sidebar({ isExpended }) {
   // className
@@ -22,11 +23,11 @@ export default function Sidebar({ isExpended }) {
   });
 
   if (isPending) {
-    content = <p>불러오는 중....</p>;
+    content = <Loading />;
   }
 
   if (isError) {
-    content = <p>에러 발생, ${error}</p>;
+    content = <p className="text-red-400">{error.message}</p>;
   }
 
   if (data) {
@@ -51,9 +52,21 @@ export default function Sidebar({ isExpended }) {
 }
 
 function SidebarList({ classWidth, category, schedule }) {
+  let categoryItem;
+  if (category) {
+    categoryItem = category.map((categoryItem, idx) => {
+      if (idx !== category.length - 1) {
+        return categoryItem + " | ";
+      } else {
+        return categoryItem;
+      }
+    });
+  }
   return (
     <div className={`${classWidth} p-4`}>
-      <div className="border-b-[1px] text-left border-divider">{category}</div>
+      <div className="border-b-[1px] text-left border-divider">
+        {categoryItem}
+      </div>
       <SidebarItem title={schedule.title} link={`schedule/${schedule.id}`} />
     </div>
   );
