@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck as afterCheck } from "@fortawesome/free-solid-svg-icons";
 import { faSquareCheck as beforeCheck } from "@fortawesome/free-regular-svg-icons";
 import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
+import { motion } from "framer-motion";
 
 export default function SignupPage() {
   return (
@@ -69,16 +70,16 @@ export default function SignupPage() {
                   className="rounded-xl px-7 py-3 mb-6 w-full focus:outline-none focus:border-b-[1px]"
                 />
               </div>
-              <GeneralButton
-                title="완료"
-                classes="bg-gray-300/90 hover:bg-submit-btn"
-              />
+              <motion.button className="w-full">회원가입하기</motion.button>
             </form>
           </div>
           <div className="using-General mt-5 p-3">
             <ul>
-              <GeneralButton title="로그인하기" />
-              <GeneralButton title="아이디 / 비밀번호 찾기" />
+              <GeneralButton title="로그인하기" destination="/login" />
+              <GeneralButton
+                title="아이디 / 비밀번호 찾기"
+                destination="/find"
+              />
             </ul>
           </div>
         </div>

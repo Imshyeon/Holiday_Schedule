@@ -1,4 +1,5 @@
 import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
+import { motion } from "framer-motion";
 
 export default function FindAccountPage() {
   return (
@@ -21,16 +22,13 @@ export default function FindAccountPage() {
                   className="rounded-xl px-7 py-3 mb-4 w-full focus:outline-none focus:border-b-[1px]"
                 />
               </div>
-              <GeneralButton
-                title="다음"
-                classes="bg-gray-300/70 hover:bg-gray-300/90"
-              />
+              <motion.button className="w-full">다음</motion.button>
             </form>
           </div>
           <div className="using-General mt-5 p-5">
             <ul>
-              <GeneralButton title="로그인하기" />
-              <GeneralButton title="회원가입하기" />
+              <GeneralButton title="로그인하기" destination="/login" />
+              <GeneralButton title="회원가입하기" destination="/signup" />
             </ul>
           </div>
         </div>

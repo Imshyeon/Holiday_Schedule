@@ -1,5 +1,3 @@
-import "./App.css";
-
 import RootPage from "./pages/RootPage";
 import MainPage from "./pages/MainPage";
 
@@ -36,12 +34,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
-        children: [
-          {
-            path: "?login=detail",
-            element: <LoginPage />,
-          },
-        ],
       },
       {
         path: "signup",

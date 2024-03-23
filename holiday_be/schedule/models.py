@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 class Schedule(models.Model):
     title = models.CharField(max_length=128)
@@ -24,3 +25,4 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username + "'s Profile"
+    

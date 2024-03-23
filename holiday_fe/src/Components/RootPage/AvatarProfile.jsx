@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../Store/modal";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getUserInfo } from "../../util/http";
 
 export default function AvatarProfile() {
   const dispatch = useDispatch();
@@ -14,6 +16,12 @@ export default function AvatarProfile() {
       dispatch(profileActions.clickProfile(false));
     }
   }
+
+  const { data, isFetching, isError, error } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: getUserInfo,
+  });
+  console.log(data);
 
   return (
     <>
@@ -32,7 +40,15 @@ export default function AvatarProfile() {
         </Link>
         <h1>{user.username}</h1>
         <h3>여행(n)</h3>
-        <p>로그인/로그아웃</p>
+        <Link to="login">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: [0.9, 1] }}
+            className="mt-2 bg-main-side py-2 px-4 rounded-lg"
+          >
+            로그인하기
+          </motion.button>
+        </Link>
       </motion.div>
     </>
   );
