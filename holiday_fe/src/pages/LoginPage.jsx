@@ -1,6 +1,6 @@
 import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
 import { motion } from "framer-motion";
-import { userLoginHandler } from "../util/http";
+import { getUserInfo, userLoginHandler } from "../util/http";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {

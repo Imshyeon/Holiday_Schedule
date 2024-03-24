@@ -60,7 +60,6 @@ export async function createNewSchedule(scheduleFormData) {
 }
 
 export async function userLoginHandler(username, email, password) {
-  console.log(username, email, password);
   const requestOptions = {
     method: "POST", // POST 메서드를 사용하여 로그인 요청을 보냅니다.
     headers: {
@@ -73,30 +72,35 @@ export async function userLoginHandler(username, email, password) {
     }),
   };
 
-  try {
-    const response = await fetch(
-      "http://127.0.0.1:8000/api/login/",
-      requestOptions
-    );
+  const response = await fetch(
+    "http://127.0.0.1:8000/api/login/",
+    requestOptions
+  );
 
-    if (!response.ok) {
-      console.log("로그인 실패");
-      return { message: "로그인 실패", code: response.status };
-    }
-
-    return { message: "로그인 성공", code: response.status };
-  } catch (error) {
-    console.error("로그인 요청 중 오류가 발생했습니다.", error);
-    return { message: "로그인 요청 중 오류가 발생했습니다.", code: 500 };
+  if (!response.ok) {
+    return {
+      message: "로그인 요청 중 오류가 발생했습니다.",
+      code: 500,
+    };
   }
+  const resData = await response.json();
+  console.log(resData);
+  if (resData) {
+    localStorage.setItem("userToken", resData.access);
+  }
+  return { message: "로그인 성공", code: response.status, ...resData };
 }
 
-export async function getUserInfo() {
-  const response = await fetch("http://127.0.0.1:8000/api/user/");
+export async function getUserInfo(token) {
+  const response = await fetch("http://127.0.0.1:8000/api/user/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
   if (!response.ok) {
     throw new Error("유저 데이터를 가져올 수 없습니다.");
   }
-  console.log(response);
   const resData = await response.json();
   return resData;
 }

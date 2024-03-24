@@ -13,9 +13,6 @@ def save_profile(sender, instance, created, **kwargs):
 
 @receiver(user_signed_up)
 def create_profile_for_new_user(sender, request, user, **kwargs):
-    print('==>',user) # ruibao
-    print('==>',user.username) # ruibao
-    print('==>',user.email) #ruibao@everland.com
     if not Profile.objects.filter(user=user).exists():
         profile_data = {
             'user': user,

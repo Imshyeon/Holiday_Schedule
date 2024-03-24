@@ -33,6 +33,14 @@ const userSlices = createSlice({
         image,
       };
     },
+    getUserInfoFromBackEnd(state, action) {
+      const userInfo = action.payload;
+      console.log(userInfo);
+      state.user = {
+        username: userInfo.username,
+        email: userInfo.email,
+      };
+    },
   },
 });
 

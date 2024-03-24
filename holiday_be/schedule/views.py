@@ -7,6 +7,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
+    serializer = ProfileSerializer(user_profile)
+    return Response(serializer.data)
+
+
 class LoginAPIView(APIView):
     def post(self, request, format=None):
         username = request.data.get('username')

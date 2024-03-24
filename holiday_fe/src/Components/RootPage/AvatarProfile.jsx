@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../Store/modal";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { getUserInfo } from "../../util/http";
 
 export default function AvatarProfile() {
   const dispatch = useDispatch();
@@ -17,12 +15,7 @@ export default function AvatarProfile() {
     }
   }
 
-  const { data, isFetching, isError, error } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: getUserInfo,
-  });
-  console.log(data);
-
+  console.log(user);
   return (
     <>
       <motion.div
