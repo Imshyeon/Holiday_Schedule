@@ -59,7 +59,7 @@ export async function createNewSchedule(scheduleFormData) {
   return schedule;
 }
 
-export async function userLoginHandler(username, email, password) {
+export async function userLoginHandler(username, password) {
   const requestOptions = {
     method: "POST", // POST 메서드를 사용하여 로그인 요청을 보냅니다.
     headers: {
@@ -67,7 +67,6 @@ export async function userLoginHandler(username, email, password) {
     },
     body: JSON.stringify({
       username: username,
-      email: email,
       password: password,
     }),
   };
@@ -85,9 +84,8 @@ export async function userLoginHandler(username, email, password) {
   }
   const resData = await response.json();
   console.log(resData);
-  if (resData) {
-    localStorage.setItem("userToken", resData.access);
-  }
+  localStorage.setItem("userToken", resData.access);
+  localStorage.setItem("userRefresh", resData.refresh);
   return { message: "로그인 성공", code: response.status, ...resData };
 }
 
@@ -95,7 +93,7 @@ export async function getUserInfo(token) {
   const response = await fetch("http://127.0.0.1:8000/api/user/", {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
+      "Content-Type": "application/json",
     },
   });
   if (!response.ok) {
@@ -103,4 +101,23 @@ export async function getUserInfo(token) {
   }
   const resData = await response.json();
   return resData;
+}
+
+export async function userLogoutHandler(token) {
+  const headers = {
+    refresh: token,
+    "Content-Type": "application/json",
+  };
+  console.log(headers);
+  const response = await fetch("http://127.0.0.1:8000/api/logout/", {
+    method: "POST",
+    headers: headers,
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("로그아웃을 실패했습니다. 다시 시도해주세요.");
+  }
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userRefresh");
+  return;
 }

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     "rest_framework_simplejwt",
+    'rest_framework_simplejwt.token_blacklist',
     'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
@@ -66,7 +67,11 @@ MIDDLEWARE = [
 
 # CORS
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:8000', 'http://localhost:3000']
+    'http://127.0.0.1:8000',
+      'http://localhost:3000', 
+      'http://localhost:8000', 
+      'http://127.0.0.1:3000'
+]
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'holiday_be.urls'
@@ -184,10 +189,19 @@ REST_AUTH = {
     "JWT_AUTH_HTTPONLY": False,
 }
 
+CORS_ALLOW_HEADERS = [
+    'Content-Type',
+    'Authorization',
+    'refresh', 
+]
+
+
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000/",
-        "http://127.0.0.1:3000/",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8000",
+        "http://localhost:8000"
     ]

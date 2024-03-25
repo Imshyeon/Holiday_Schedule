@@ -5,7 +5,6 @@ import { log } from "../log";
 import Sidebar from "../Components/RootPage/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../Store/modal";
-
 export default function RootPage() {
   log("<RootPage /> rendered");
 

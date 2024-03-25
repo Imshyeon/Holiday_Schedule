@@ -1,25 +1,28 @@
 import GeneralButton from "../Components/UI/Login-Signup-Find/GeneralButton";
 import { motion } from "framer-motion";
-import { getUserInfo, userLoginHandler } from "../util/http";
+import { userLoginHandler, getUserInfo } from "../util/http";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActions } from "../Store/user";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function submitLoginHandler(event) {
     console.log("click");
     event.preventDefault();
     const fd = new FormData(event.target);
     const userData = Object.fromEntries(fd.entries());
-    const response = userLoginHandler(
-      userData.userId,
-      userData.userEmail,
-      userData.userPW
-    );
+    const response = userLoginHandler(userData.userId, userData.userPW);
     const resData = await response;
     console.log(resData);
+
     if (resData.code === 200) {
       event.target.reset();
+      const response = await getUserInfo(resData.access);
+      console.log(response);
+      dispatch(userActions.getUserInfoFromBackEnd(response));
       navigate("/");
     } else {
       event.target.reset();
@@ -45,17 +48,6 @@ export default function LoginPage() {
                   type="text"
                   id="userId"
                   name="userId"
-                  className="rounded-xl p-2 w-full border-b-2 focus:outline-none"
-                />
-              </div>
-              <div className="flex flex-col gap-2 mt-5 w-4/5">
-                <label htmlFor="userId" className="text-left">
-                  EMAIL
-                </label>
-                <input
-                  type="email"
-                  id="userEmail"
-                  name="userEmail"
                   className="rounded-xl p-2 w-full border-b-2 focus:outline-none"
                 />
               </div>

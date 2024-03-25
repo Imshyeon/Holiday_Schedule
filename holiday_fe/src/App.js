@@ -15,11 +15,6 @@ import NewSchedulePage from "./pages/NewSchedulePage";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http";
 
-import { useEffect, useState } from "react";
-import { getUserInfo } from "./util/http";
-import { useDispatch } from "react-redux";
-import { userActions } from "./Store/user";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,22 +56,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("userToken");
-        const userData = await getUserInfo(token);
-        dispatch(userActions.getUserInfoFromBackEnd(userData));
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, [dispatch]);
-
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

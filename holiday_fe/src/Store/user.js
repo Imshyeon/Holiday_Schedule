@@ -4,9 +4,9 @@ const userSlices = createSlice({
   name: "user",
   initialState: {
     user: {
-      username: "이름",
-      email: "example@co.kr",
-      userInfo: "User Information",
+      username: null,
+      email: null,
+      userInfo: null,
     },
     edit: false,
   },
