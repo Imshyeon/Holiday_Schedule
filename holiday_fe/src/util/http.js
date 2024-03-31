@@ -103,6 +103,7 @@ export async function getUserInfo(token) {
   return resData;
 }
 
+// 오류
 export async function userLogoutHandler(token) {
   const headers = {
     refresh: token,

@@ -14,6 +14,9 @@ module.exports = {
         "submit-btn": { DEFAULT: "#9DF2EA" },
         "user-profile": { DEFAULT: "#F6F6F6" },
       },
+      animation: {
+        "login-error": "shake .5s",
+      },
     },
   },
   plugins: [],

@@ -35,7 +35,7 @@ export function Loading({ text }) {
   );
 }
 
-export function ErrorMessage({ error }) {
+export function ErrorMessage({ error, message }) {
   const [X, setX] = useState(false);
   function clickXHandler() {
     console.log("X");
@@ -46,7 +46,7 @@ export function ErrorMessage({ error }) {
   if (!X) {
     content = (
       <div className="xl:mt-10 max-xl:mt-14 h-10 bg-red-500 flex justify-between items-center">
-        <p className="text-white ml-4">{error.message}</p>
+        <p className="text-white ml-4">{error ? error.message : message}</p>
         <button onClick={clickXHandler}>
           <FontAwesomeIcon icon={faX} className="text-white mr-4" />
         </button>
