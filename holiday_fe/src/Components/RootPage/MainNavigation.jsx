@@ -63,11 +63,6 @@ export default function MainNavigation() {
                 시작하기
               </Link>
             </motion.li>
-            <motion.li className="basis-1/12 p-2" whileHover={{ scale: 1.08 }}>
-              <Link to="article/:id" className="font-semibold">
-                Article
-              </Link>
-            </motion.li>
             <div className="absolute top-1 right-3">
               <div className="relative">
                 <button onClick={clickAvatarHandler} className="z-10">

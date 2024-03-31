@@ -12,15 +12,9 @@ export default function Footer() {
               시작하기
             </Link>
           </motion.li>
-          <motion.li className="my-3" whileHover={{ scale: 1.08 }}>
-            <Link to="article/:id" className="font-semibold">
-              Article
-            </Link>
-          </motion.li>
         </ul>
         <div className="flex flex-row p-5 items-end">
-          <p className="items-center p-2">CONTRIBUTORS</p>
-          <img className="App-logo max-w-10 max-h-10" src={logo} alt="logo" />
+          <p className="items-center p-2">Time To Travel</p>
         </div>
       </div>
     </footer>

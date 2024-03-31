@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ScheduleViewSet, ProfileViewSet
+from .views import ScheduleViewSet, ProfileViewSet,ArticleViewSet
 from dj_rest_auth.jwt_auth import get_refresh_view
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import UserDetailsView, LogoutView
@@ -12,7 +12,8 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register(r'schedule', ScheduleViewSet)
-router.register(r'user',ProfileViewSet)
+router.register(r'profile', ProfileViewSet)
+router.register(r'article', ArticleViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

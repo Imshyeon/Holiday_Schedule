@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Schedule,Profile
-from .serializers import ScheduleSerializer, ProfileSerializer
+from .models import Schedule,Profile,Article
+from .serializers import ScheduleSerializer, ProfileSerializer,ArticleSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -38,3 +38,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer

@@ -8,11 +8,6 @@ import { fetchHandler } from "../util/http";
 
 import { Loading, ErrorMessage } from "../Components/UI/DataIndicator";
 
-import GoogleMapComponent from "../Components/Google/GoogleMapComponent";
-import Marker from "../Components/Google/Marker";
-import { Wrapper } from "@googlemaps/react-wrapper";
-const GOOGLE_API_KEY = "AIzaSyBwXhlspBZwf-kAjV6pWsx9VIxNrFdP3uk";
-
 export default function MainPage() {
   // Framer Motioin
   const container = {
@@ -46,27 +41,32 @@ export default function MainPage() {
     content = <p className="text-red-400">{error.message}</p>;
   }
 
-  if (data) {
+  if (data && data.length > 0) {
     content = (
-      <motion.ul className="flex gap-5" variants={container} animate="show">
-        {data.map((schedule) => {
-          return (
-            <MainScheduleComponent
-              key={schedule.id}
-              item={item}
-              link={`schedule/${schedule.id}`}
-              name={schedule.title}
-              coverImage={schedule["cover_image"]}
-            />
-          );
-        })}
-      </motion.ul>
+      <article className="mt-5 mb-8">
+        <h3 className="font-bold">생성한 여행 스케줄</h3>
+        <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
+          <motion.ul className="flex gap-5" variants={container} animate="show">
+            {data.map((schedule) => {
+              return (
+                <MainScheduleComponent
+                  key={schedule.id}
+                  item={item}
+                  link={`schedule/${schedule.id}`}
+                  name={schedule.title}
+                  coverImage={schedule["cover_image"]}
+                />
+              );
+            })}
+          </motion.ul>
+        </div>
+      </article>
     );
   }
 
   return (
     <>
-      <section className="bg-gray-500 h-64 p-5">
+      {/* <section className="bg-gray-500 h-64 p-5">
         <div className="grid grid-cols-6 grid-rows-auto text-center auto-rows-auto">
           <div className="text-center col-start-2 col-span-4 py-24">
             <input
@@ -76,14 +76,20 @@ export default function MainPage() {
             />
           </div>
         </div>
-      </section>
-      <section className="xl:mx-10 max-xl:mx-5">
-        <article className="mt-5 mb-8">
+      </section> */}
+      {isError && <ErrorMessage error={error} />}
+      <section
+        className={
+          isError ? "mt-10 xl:mx-10 max-xl:mx-5" : "mt-24 xl:mx-10 max-xl:mx-5"
+        }
+      >
+        {/* <article className="mt-5 mb-8">
           <h3 className="font-bold">생성한 여행 스케줄</h3>
           <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
             {content}
           </div>
-        </article>
+        </article> */}
+        {content}
         <article className="mt-5 mb-8">
           <h3 className="font-bold">Articles</h3>
           <div className="w-full h-72 mt-2 overflow-x-scroll overscroll-auto flex items-center">
@@ -102,18 +108,6 @@ export default function MainPage() {
             </motion.ul>
           </div>
         </article>
-        {/* google map test */}
-        <article>
-          <Wrapper apiKey={GOOGLE_API_KEY}>
-            <GoogleMapComponent
-              center={{ lat: -34.397, lng: 150.644 }}
-              zoom={8}
-            >
-              <Marker position={{ lat: -34.397, lng: 150.644 }} />
-            </GoogleMapComponent>
-          </Wrapper>
-        </article>
-        {/* =============== */}
       </section>
     </>
   );

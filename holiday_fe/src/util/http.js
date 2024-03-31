@@ -107,7 +107,6 @@ export async function getUserInfo(token) {
 export async function userLogoutHandler(token) {
   const headers = {
     refresh: token,
-    "Content-Type": "application/json",
   };
   console.log(headers);
   const response = await fetch("http://127.0.0.1:8000/api/logout/", {
