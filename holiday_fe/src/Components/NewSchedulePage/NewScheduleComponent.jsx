@@ -25,7 +25,7 @@ export default function NewScheduleComponent({ label, id, name }) {
             <div className="flex flex-row gap-2 text-center">
               <p className="w-8 text-xl">제목</p>
               <Field
-                as="textarea"
+                as="text"
                 id={id}
                 name={name}
                 rows="1"
